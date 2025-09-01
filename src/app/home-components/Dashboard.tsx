@@ -25,7 +25,7 @@ export default function DashBoard() {
   }
 
   return (
-    <div className={`h-full w-[70%] p-5 pt-4.5`}>
+    <div className={`h-full w-[70%] p-5 pb-50 pt-4.5`}>
       <div
         className={`h-full ${
           navOpen ? "w-[calc(100%-300px)]" : "w-full pl-10 min-[1900px]:pl-0"

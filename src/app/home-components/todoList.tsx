@@ -5,6 +5,7 @@ import { Todo, useTodoStore } from "../utils/store/todo.store";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import axios from "axios";
+import { todo } from "node:test";
 
 const priorityColor = [
   "from-rose-500/20",
@@ -13,17 +14,17 @@ const priorityColor = [
   "from-blue-500/20",
 ];
 
-export default function TodoList({ todos }: { todos: Todo[] }) {
-  const addTaskTodo = useTodoStore((state) => state.addTaskTodo);
-  const setAddTaskTodo = useTodoStore((state) => state.setAddTaskTodo);
+export default function TodoList({
+  todos,
+}: {
+  todos: Todo[];
+}) {
   const setSelectedTodo = useTodoStore((state) => state.setSelectedTodo);
   const selectedTodo = useTodoStore((state) => state.selectedTodo);
   const getProjects = useTodoStore((state) => state.getProjects);
 
-
   async function handleTodoStatus(todo: Todo) {
     try {
-
       const res = await axios.patch("/api/todo", {
         ...todo,
         status: todo.status === "pending" ? "in-progress" : "done",
@@ -171,25 +172,7 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
           </div>
         </>
       )}
-      {addTaskTodo ? (
-        <AddTaskBox />
-      ) : (
-        <button
-          onClick={() => setAddTaskTodo(true)}
-          className={`w-full select-none text-sm flex-row p-1 px-2 text-slate-600 items-center bg-slate-900/20 cursor-pointer hover:bg-slate-900/70 rounded-md my-1 ${
-            todos ? "flex" : "hidden"
-          }`}
-        >
-          <Image
-            src="/media/closeOption.png"
-            className="size-5 mr-2 mb-1 invert opacity-35"
-            alt="Logo"
-            width={20}
-            height={20}
-          />
-          Add Task
-        </button>
-      )}
+
     </>
   );
 }

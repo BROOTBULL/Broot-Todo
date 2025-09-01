@@ -9,16 +9,19 @@ export type TodoInput = {
   task: string;
   description: string;
   project: string;
-  status:string;
+  status: string;
   section: string;
   dueDate: Date | null; // 👈 allow null
   priority: number;
 };
 
-export default function AddTaskBox() {
+export default function AddTaskBox({
+  setAddTaskTodoBox,
+}: {
+  setAddTaskTodoBox: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const activeProject = useTodoStore((state) => state.activeProject);
   const setAddBox = useTodoStore((state) => state.setAddBox);
-  const setAddTaskTodo = useTodoStore((state) => state.setAddTaskTodo);
   const projectData = useTodoStore((state) => state.projectData);
   const getProjects = useTodoStore((state) => state.getProjects);
   const InboxProject = projectData.find((project) => project.isInbox === true);
@@ -36,12 +39,12 @@ export default function AddTaskBox() {
     updatedAt: "",
     __v: 0,
   });
-  const [sectionSelected, setSectionSelected] = useState<Section|null>(null);
+  const [sectionSelected, setSectionSelected] = useState<Section | null>(null);
   const [newtask, setnewTask] = useState<TodoInput>({
     task: "",
     description: "",
     project: "",
-    status:"pending",
+    status: "pending",
     section: "",
     dueDate: null,
     priority: 4,
@@ -52,7 +55,9 @@ export default function AddTaskBox() {
       setProjectSelected(
         activeProject.title !== "" ? activeProject : InboxProject
       );
-      setSectionSelected(projectSelected.isInbox?InboxProject.sections[0]:null);
+      setSectionSelected(
+        projectSelected.isInbox ? InboxProject.sections[0] : null
+      );
     }
   }, []);
 
@@ -90,12 +95,12 @@ export default function AddTaskBox() {
     }
     await getProjects();
     setAddBox(null);
-    setAddTaskTodo(false);
+    setAddTaskTodoBox(false);
     setnewTask({
       task: "",
       description: "",
       project: "Inbox",
-      status:"pending",
+      status: "pending",
       section: "",
       dueDate: null,
       priority: 4,
@@ -144,7 +149,7 @@ export default function AddTaskBox() {
             onChange={(date) => {
               setnewTask((prev) => ({
                 ...prev,
-                dueDate: date, 
+                dueDate: date,
               }));
             }}
             minDate={new Date()}
@@ -285,9 +290,9 @@ export default function AddTaskBox() {
             }}
             type="button"
             className={`h-8 w-fit px-3 text-sm border-1 text-slate-300 border-slate-600/50 rounded-md flex flex-row items-center ${
-              projectSelected && !projectSelected.isInbox
+              (projectSelected && !projectSelected.isInbox )
                 ? " cursor-pointer"
-                : "brightness-50 cursor-default"
+                : "brightness-50 "
             } hover:bg-slate-800`}
           >
             <Image
@@ -297,7 +302,7 @@ export default function AddTaskBox() {
               width={20}
               height={20}
             />
-            {sectionSelected ? sectionSelected.name : "Sections"}
+            {sectionSelected ? sectionSelected.name : "Select Sections"}
             <Image
               src="/media/dropDown.png"
               className="size-4 ml-1"
@@ -336,7 +341,7 @@ export default function AddTaskBox() {
           <button
             onClick={() => {
               setAddBox(null);
-              setAddTaskTodo(false);
+              setAddTaskTodoBox(false);
             }}
             type="button"
             className="h-8 w-fit px-3 text-sm bg-slate-700 rounded-md flex flex-row items-center ml-auto cursor-pointer hover:bg-slate-500/70 duration-200"

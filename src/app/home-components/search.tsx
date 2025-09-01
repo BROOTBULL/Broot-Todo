@@ -1,4 +1,3 @@
-import TodoList from "./todoList";
 
 export default function Search() {
   return (
