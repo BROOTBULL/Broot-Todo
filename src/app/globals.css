@@ -3,6 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+    overflow: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 
 @theme inline {
@@ -24,3 +27,138 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@keyframes updown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-35px);
+  }
+}
+.updown1 {
+  animation: updown 5s ease-in-out infinite;
+}
+.updown2 {
+  animation: updown 5s ease-in-out infinite;
+  animation-delay: 1s;
+}
+.updown3 {
+  animation: updown 5s ease-in-out infinite;
+  animation-delay: 1.8s;
+}
+.updown4 {
+  animation: updown 5s ease-in-out infinite;
+  animation-delay: 3s;
+}
+.updown5 {
+  animation: updown 5s ease-in-out infinite;
+  animation-delay: 3.4s;
+}
+.updown6 {
+  animation: updown 5s ease-in-out infinite;
+  animation-delay: 2.4s;
+}
+.updown7 {
+  animation: updown 5s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+
+
+.emailInput
+{
+    background: url(/media/at.png) no-repeat left center;
+    background-size: 20px 20px;
+    padding-bottom:3px ;
+    padding-left: 30px;
+}
+.passInput
+{
+    background: url(/media/lock-open.png) no-repeat left center;
+    padding-bottom:3px ;
+    background-size: 20px 20px;
+    padding-left: 30px;
+}
+.UserInput
+{
+    background: url(/media/user.png) no-repeat left center;
+    padding-bottom:3px ;
+    background-size: 20px 20px;
+    padding-left: 30px;
+}
+.ph::placeholder
+{
+ color:#a4a5d7;
+}
+.ph:focus::placeholder
+{
+ color:#5556797a;
+}
+
+
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+/* Firefox support */
+.custom-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #50769e  rgb(52, 62, 94);
+}
+.custom-scroll-w {
+  scrollbar-width: thin;
+  scrollbar-color: #919191  rgb(210, 210, 210);
+}
+/* Apply Tailwind via @apply */
+.custom-calendar {
+  @apply bg-linear-to-br from-slate-800 to-slate-700 !border-0 rounded-lg p-2 text-gray-800;
+}
+
+/* Days */
+.custom-calendar .react-datepicker__day {
+  @apply text-slate-300 hover:text-slate-950 hover:bg-slate-700 rounded;
+}
+
+/* Selected day */
+.custom-calendar .react-datepicker__day--keyboard-selected {
+  @apply text-slate-900 ;
+}
+
+.custom-calendar .react-datepicker__day--selected{
+  @apply text-slate-900 bg-slate-200 font-bold
+}
+.custom-calendar .react-datepicker__header  {
+  @apply bg-slate-900 ;
+}
+
+.custom-calendar .react-datepicker__navigation
+{
+  @apply mt-2
+}
+.react-datepicker__triangle {
+  display: none !important;
+}
+
+/* Month name & year */
+.custom-calendar .react-datepicker__current-month {
+  @apply text-slate-300 font-semibold ; 
+}
+
+/* Weekday names */
+.custom-calendar .react-datepicker__day-name {
+  @apply text-slate-100 font-bold;
+}
+
+.custom-calendar .past-day {
+  @apply text-slate-500 /* Tailwind red-400 */
+}
+
+
