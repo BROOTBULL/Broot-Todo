@@ -36,7 +36,7 @@ export default function SectionBox({ section }: { section: Section }) {
         <div className="flex flex-row items-center h-full w-full ">
           <button
             onClick={() => setShowTodo(!showTodo)}
-            className="rounded-md p-1 hover:bg-slate-700/50 cursor-pointer"
+            className="rounded-md md:p-1 hover:bg-slate-700/50 cursor-pointer"
           >
             <Image
               src="/media/dropDown.png"
@@ -46,7 +46,7 @@ export default function SectionBox({ section }: { section: Section }) {
               height={20}
             />
           </button>
-          <div className="mx-1 text-slate-300 text-lg font-bold">
+          <div className="mx-1 text-slate-300 text-base md:text-lg font-bold">
             {section ? section.name : "SectionName"}
           </div>
           <div className="ml-2 text-slate-600">
@@ -56,10 +56,10 @@ export default function SectionBox({ section }: { section: Section }) {
           </div>
           <div
             onClick={() => setSectionOption(!sectionOption)}
-            className="hover:bg-slate-800 rounded-md p-1 ml-auto mr-3 cursor-pointer"
+            className="hover:bg-slate-800 rounded-md p-1 ml-auto md:mr-3 cursor-pointer"
           >
             <Image
-              src="/media/OptionD.png"
+              src="/media/OptionD2.png"
               className="size-5 "
               alt="Logo"
               width={20}
@@ -67,12 +67,12 @@ export default function SectionBox({ section }: { section: Section }) {
             />
 
             {sectionOption && (
-              <div className="bg-slate-900 p-1 absolute w-45 rounded-md z-20">
+              <div className="bg-slate-900 p-1 absolute right-1 md:right-auto mt-2 w-45 rounded-md z-20">
                 <button
                   onClick={() => handleSectionDelete(section._id)}
                   className="flex hover:bg-slate-800 p-2 rounded-sm items-center flex-row w-full h-full cursor-pointer"
                 >
-                  <div className="text-sm text-rose-400 ">Delete</div>
+                  <div className=" md:text-sm text-rose-400 ">Delete</div>
                   <Image
                     src="/media/delete.png"
                     className="size-5 ml-auto"
@@ -98,7 +98,7 @@ export default function SectionBox({ section }: { section: Section }) {
       ) : (
         <button
           onClick={() => setAddTaskTodoBox(true)}
-          className={`w-full select-none text-sm flex-row p-1 px-2 text-slate-600 items-center bg-slate-900/20 cursor-pointer hover:bg-slate-900/70 rounded-md my-1 ${
+          className={`w-full select-none text-[12px] md:text-sm flex-row p-1 px-2 text-slate-600 items-center bg-slate-900/20 cursor-pointer hover:bg-slate-900/70 rounded-md my-1 ${
             section ? "flex" : "hidden"
           }`}
         >
@@ -120,7 +120,7 @@ export default function SectionBox({ section }: { section: Section }) {
             onClick={() => setAddSectionBox(!addSectionBox)}
             className="h-8 w-full flex justify-center my-1 items-center cursor-pointer group"
           >
-            <div className="text-sm text-slate-900 group-hover:text-slate-500 duration-200">
+            <div className=" text-[12px] md:text-sm text-slate-700 md:text-slate-900 group-hover:text-slate-500 duration-200">
               ------ Add Section ------
             </div>
           </button>

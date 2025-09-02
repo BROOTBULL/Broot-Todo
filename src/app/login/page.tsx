@@ -4,13 +4,14 @@ import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+
 
 export default function SignUpPage(){
   const [registering, setRegistering] = useState(false);
   const router =useRouter()
 
   const [formData, setFormData] = useState({
-    username: "",
     email: "",
     password: "",
   });
@@ -59,7 +60,7 @@ if (emailError) {
 }
 
   try {
-    const response = await axios.post("/auth/login", formData);
+     const response = await axios.post("/api/auth/login", formData);
 
     console.log("Login successful:", response.data);
   } catch (error) {
@@ -69,15 +70,6 @@ if (emailError) {
   setRegistering(false)
 }
 
-
-  async function handleGuest(e: React.MouseEvent<HTMLElement>) {
-    e.preventDefault();
-    const guestInput = await axios.post(
-      "/auth/signUpGuest",{name:"Guest123"}
-    );
-    console.log("response:", guestInput);
-  }
-
   function validateEmail(email: string): string | null {
     if (!email.trim()) return "Email is required";
 
@@ -86,6 +78,36 @@ if (emailError) {
 
     return null; // No error
   }
+
+async function handleGuest(e: React.MouseEvent<HTMLElement>) {
+    e.preventDefault();
+    try {
+      const randomId = uuidv4().slice(0, 8);
+      const UserInput = await axios.post("/api/auth/signup", {
+        username: "Guest-" + randomId,
+        email: "guest-" + randomId + "@gmail.com",
+        password: randomId,
+      });
+
+      console.log("SignUp response:", UserInput);
+
+      const result = await signIn("credentials", {
+        redirect: false,
+        email: "guest-" + randomId + "@gmail.com",
+        password: randomId,
+      });
+
+      if (result?.ok) {
+        router.push("/home"); // redirect to Home
+      } else {
+        alert("Login failed after signup");
+      }
+    } catch (err) {
+      console.error("Auth check failed:", err);
+      displayError("Username or Email Already exists..!!");
+    }
+  }
+
 
   function handlePasswordType(e: React.MouseEvent<HTMLElement>)
   {
@@ -108,13 +130,13 @@ if (emailError) {
             LogIn
           </div>
           <div className="w-[80%] h-fit flex m-3 text-center justify-center items-center">
-            <form className="flex flex-col w-[80%]" action="">
+            <form className="flex flex-col w-[90%]" action="">
               <div className="text-md mb-5 items-end text-indigo-200 drop-shadow-lg">
                 Enter your email and a password
               </div>
               <div className=" pl-2 rounded-t-lg border-2 border-b-0 border-indigo-400/20">
                 <input
-                  className="ph emailInput w-full h-12 lg:h-14 lg:text-[18px] p-2 focus:outline-none"
+                  className="ph emailInput w-full h-10 text-sm lg:h-14 lg:text-[18px] p-2 focus:outline-none"
                   placeholder="Email"
                   type="text"
                   name="email"
@@ -126,7 +148,7 @@ if (emailError) {
               </div>
               <div className=" pl-2 rounded-b-lg flex flex-row border-2 border-t-0 border-indigo-400/20">
                 <input
-                  className="ph passInput w-[90%] h-12 lg:h-14 lg:text-[18px] p-2 focus:outline-none"
+                  className="ph passInput w-[90%] h-10 text-sm lg:h-14 lg:text-[18px] p-2 focus:outline-none"
                   placeholder="Password"
                   type={passwordType}
                   name="password"
@@ -177,7 +199,7 @@ if (emailError) {
           <div className=" items-end text-sm text-indigo-200 drop-shadow-lg">
             Play as guest OR signup with Google
           </div>
-          <div className="flex flex-row w-[68%]">
+          <div className="flex flex-row w-[80%] lg:w-[68%]">
             <button
               onClick={(e) => handleGuest(e)}
               className="flex text-[15px] rounded-lg md:text-[18px] w-full lg:text-lg md:px-5 lg:px-10 h-fit justify-center items-center  bg-indigo-400/50 px-10 py-2 m-3 shadow-lg/30 text-zinc-100 font-serif cursor-pointer hover:bg-indigo-300/50 "

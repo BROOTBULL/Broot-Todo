@@ -14,11 +14,7 @@ const priorityColor = [
   "from-blue-500/20",
 ];
 
-export default function TodoList({
-  todos,
-}: {
-  todos: Todo[];
-}) {
+export default function TodoList({ todos }: { todos: Todo[] }) {
   const setSelectedTodo = useTodoStore((state) => state.setSelectedTodo);
   const selectedTodo = useTodoStore((state) => state.selectedTodo);
   const getProjects = useTodoStore((state) => state.getProjects);
@@ -51,7 +47,7 @@ export default function TodoList({
             return (
               <div
                 key={i}
-                onDoubleClick={() => {
+                onClick={() => {
                   setSelectedTodo(selectedTodo ? null : todo);
                 }}
                 className={` ${
@@ -73,12 +69,16 @@ export default function TodoList({
                     height={20}
                   />
                 </div>
-                <div className="flex flex-col pointer-events-none select-none">
-                  <div className="text-sm text-slate-300 font-bold ml-0.5">
+                <div className="flex flex-col pointer-events-none select-none max-w-50 md:max-w-120 overflow-x-hidden">
+                  <div className="text-sm text-slate-300 font-bold ml-0.5 h-5 overflow-y-hidden">
                     {todo ? todo.task : "Task name..."}
                   </div>
-                  <div className="text-[12px] pl-1 text-slate-400">
-                    {todo ? todo.description : "Description..."}
+                  <div className="text-[12px] pl-1 text-slate-400 h-4 overflow-y-hidden">
+                    {todo
+                      ? todo.description.length >25
+                        ? todo.description.slice(0, 25) + "..."
+                        : todo.description
+                      : "Description..."}
                   </div>
                   <div className="text-[10px] px-0.5 pt-1.5 text-slate-400 tracking-wider flex items-center flex-row select-none">
                     <Image
@@ -172,7 +172,6 @@ export default function TodoList({
           </div>
         </>
       )}
-
     </>
   );
 }

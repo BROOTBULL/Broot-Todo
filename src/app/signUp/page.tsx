@@ -146,13 +146,13 @@ export default function SignUpPage() {
             SignUp
           </div>
           <div className="w-[80%] h-fit flex m-3 text-center justify-center items-center">
-            <form className="flex flex-col w-[80%]" action="">
-              <div className="text-md mb-5 items-end text-indigo-200 drop-shadow-lg">
+            <form className="flex flex-col w-[90%]" action="">
+              <div className="text-base mb-5 items-end text-indigo-200 drop-shadow-lg">
                 Enter your email and a password
               </div>
               <div className=" pl-2 rounded-t-lg border-2 border-b-0 border-indigo-400/20">
                 <input
-                  className="ph emailInput w-full h-12 lg:h-14 lg:text-[18px] p-2 focus:outline-none"
+                  className="ph emailInput w-full h-10 text-sm lg:h-14 lg:text-[18px] p-2 focus:outline-none"
                   placeholder="Email"
                   type="text"
                   name="email"
@@ -164,7 +164,7 @@ export default function SignUpPage() {
               </div>
               <div className=" pl-2 border-2 border-y-0 border-indigo-400/20">
                 <input
-                  className="ph UserInput w-full h-12 lg:h-14 lg:text-[18px] p-2 focus:outline-none"
+                  className="ph UserInput w-full h-10 text-sm lg:h-14 lg:text-[18px] p-2 focus:outline-none"
                   placeholder="Name"
                   type="text"
                   name="username"
@@ -176,7 +176,7 @@ export default function SignUpPage() {
               </div>
               <div className=" pl-2 rounded-b-lg flex flex-row border-2 border-t-0 border-indigo-400/20">
                 <input
-                  className="ph passInput w-[90%] h-12 lg:h-14 lg:text-[18px] p-2 focus:outline-none"
+                  className="ph passInput w-[90%] h-10 text-sm lg:h-14 lg:text-[18px] p-2 focus:outline-none"
                   placeholder="Password"
                   type={passwordType}
                   name="password"
@@ -237,7 +237,7 @@ export default function SignUpPage() {
           <div className=" items-end text-sm text-indigo-200 drop-shadow-lg">
             Play as guest OR signup with Google
           </div>
-          <div className="flex flex-row w-[68%]">
+          <div className="flex flex-row w-[80%] lg:w-[68%]">
             <button
               onClick={(e) => handleGuest(e)}
               className="flex text-[15px] rounded-lg md:text-[18px] w-full lg:text-lg md:px-5 lg:px-10 h-fit justify-center items-center  bg-indigo-400/50 px-10 py-2 m-3 shadow-lg/30 text-zinc-100 font-serif cursor-pointer hover:bg-indigo-300/50 "

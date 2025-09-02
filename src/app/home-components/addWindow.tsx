@@ -15,7 +15,7 @@ export default function AddWindow() {
     <>
       {addBox && (
         <div
-          className="fixed inset-0 flex p-35 justify-center bg-black/40 backdrop-blur-[1px] z-120"
+          className="fixed inset-0 flex pt-35 p-6 justify-center bg-black/40 backdrop-blur-[1px] z-120"
           onClick={() => setAddBox(null)}
         >
           <div className="w-150 h-fit bg-slate-900">

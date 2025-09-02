@@ -29,7 +29,7 @@ export default function Inbox() {
           ) : (
             <button
               onClick={() => setAddTaskTodoBox(true)}
-              className={`w-full select-none text-sm flex-row p-1 px-2 text-slate-600 items-center bg-slate-900/20 cursor-pointer hover:bg-slate-900/70 rounded-md my-1 ${
+              className={`w-full select-none text-[12px] md:text-sm flex-row p-1 px-2 text-slate-600 items-center bg-slate-900/20 cursor-pointer hover:bg-slate-900/70 rounded-md my-1 ${
                 InboxSection ? "flex" : "hidden"
               }`}
             >

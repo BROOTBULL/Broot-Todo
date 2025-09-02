@@ -115,13 +115,13 @@ export default function AddTaskBox({
     <form
       id="taskForm"
       onSubmit={handleSubmit}
-      className="bg-slate-950/60 border-1 border-slate-700 p-5 h-fit rounded-md shadow-lg w-full text-center drop-shadow-2xl/80 select-none"
+      className="bg-slate-950/60 border-1 border-slate-700 p-3 md:p-5  h-fit rounded-md shadow-lg w-full text-center drop-shadow-2xl/80 select-none"
       onClick={(e) => e.stopPropagation()}
     >
       <div className="h-fit w-full scroll-smooth overflow-auto flex flex-col">
         <input
           onChange={handleChange}
-          className="text-xl outline-none p-1"
+          className="text-base md:text-xl outline-none p-1"
           type="text"
           name="task"
           autoComplete="off"
@@ -134,7 +134,7 @@ export default function AddTaskBox({
           minRows={2}
           maxRows={6}
           onChange={handleChange}
-          className="p-1 resize-none scroll-auto outline-none custom-scroll"
+          className="p-1 text-[13px] md:text-base resize-none scroll-auto outline-none custom-scroll"
           name="description"
           placeholder="Description"
           value={newtask.description}
@@ -154,7 +154,7 @@ export default function AddTaskBox({
             }}
             minDate={new Date()}
             dateFormat="dd/MM/yyyy" // or "yyyy-MM-dd"
-            className="border-1 border-slate-600/50 p-2 rounded-md w-25 h-8 outline-0 cursor-pointer text-slate-300 text-sm tracking-wider"
+            className="border-1 border-slate-600/50 p-2 md:rounded-md rounded-sm w-25 h-6.5 md:h-8 outline-0 cursor-pointer text-slate-300 text-[12px] md:text-sm tracking-wider"
             calendarClassName="custom-calendar"
             placeholderText="Date"
           />
@@ -162,7 +162,7 @@ export default function AddTaskBox({
             onClick={() => {
               setPriorityBox(!priorityBox);
             }}
-            className="h-8 px-3 text-sm border-1 text-slate-300 border-slate-600/50 rounded-md flex flex-row items-center cursor-pointer hover:bg-slate-800"
+            className=" px-3 border-1 text-slate-300 border-slate-600/50 h-6.5 md:h-8 rounded-sm md:rounded-md flex flex-row items-center text-[12px] md:text-sm cursor-pointer hover:bg-slate-800"
           >
             <Image
               src="/media/priority.png"
@@ -173,7 +173,7 @@ export default function AddTaskBox({
             />
             Priority
             {priorityBox && (
-              <div className="h-9 w-fit p-2 bg-slate-800 absolute ml-20 rounded-md flex flex-wrap gap-1">
+              <div className="h-7 md:h-9 w-fit p-1 md:p-2 bg-slate-800 absolute ml-20 rounded-sm md:rounded-md  flex flex-wrap gap-1">
                 <button
                   type="button"
                   onClick={() =>
@@ -237,7 +237,7 @@ export default function AddTaskBox({
               setProjectBox(!projectBox);
             }}
             type="button"
-            className="h-8 w-fit px-3 text-sm border-1 text-slate-300 border-slate-600/50 rounded-md flex flex-row items-center cursor-pointer hover:bg-slate-800"
+            className="h-6.5 md:h-8 w-fit px-1 md:px-3 text-[12px] md:text-sm border-1 text-slate-300 border-slate-600/50 rounded-sm md:rounded-md flex flex-row items-center cursor-pointer hover:bg-slate-800"
           >
             <Image
               src="/media/hashtag.png"
@@ -246,9 +246,11 @@ export default function AddTaskBox({
               width={20}
               height={20}
             />
+             <div className="max-w-16 md:max-w-25 overflow-hidden text-nowrap h-fit">
             {projectSelected.title && projectSelected.title !== ""
               ? projectSelected.title
               : "Inbox"}
+            </div>
             <Image
               src="/media/dropDown.png"
               className="size-4 ml-1"
@@ -258,7 +260,7 @@ export default function AddTaskBox({
             />
           </button>
           {projectBox && (
-            <div className="bg-linear-to-tr from-slate-900 to-slate-800 h-fit max-h-50 w-50 absolute -left-6 mt-10 rounded gap-1 flex flex-col p-2">
+            <div className="bg-linear-to-tr from-slate-900 to-slate-800 h-fit max-h-50 w-35 md:w-50 overflow-x-hidden absolute -left-6 mt-7 md:mt-10 rounded gap-1 flex flex-col p-2">
               {projectData.length > 0 ? (
                 projectData.map((project, i) => {
                   return (
@@ -269,7 +271,7 @@ export default function AddTaskBox({
                           setProjectBox(false);
                         }}
                         type="button"
-                        className="h-8 w-full px-3 text-sm rounded-md flex flex-row items-center ml-auto cursor-pointer border-b-1 border-slate-600 hover:bg-slate-500/50 duration-200"
+                        className="h-6 md:h-8 w-full px-3 text-[12px] md:text-sm rounded-md flex flex-row items-center ml-auto cursor-pointer border-b-1 border-slate-600 hover:bg-slate-500/50 duration-200"
                       >
                         {"#"} {project.title}
                       </button>
@@ -289,7 +291,7 @@ export default function AddTaskBox({
               setSectionBox(!sectionBox);
             }}
             type="button"
-            className={`h-8 w-fit px-3 text-sm border-1 text-slate-300 border-slate-600/50 rounded-md flex flex-row items-center ${
+            className={`h-6.5 md:h-8 w-fit px-1 md:px-3 text-[12px] md:text-sm border-1 text-slate-300 border-slate-600/50 rounded-sm md:rounded-md flex flex-row items-center text-nowrap ${
               (projectSelected && !projectSelected.isInbox )
                 ? " cursor-pointer"
                 : "brightness-50 "
@@ -302,7 +304,9 @@ export default function AddTaskBox({
               width={20}
               height={20}
             />
+             <div className="max-w-16 md:max-w-25 overflow-hidden h-fit">
             {sectionSelected ? sectionSelected.name : "Select Sections"}
+             </div>
             <Image
               src="/media/dropDown.png"
               className="size-4 ml-1"
@@ -312,7 +316,7 @@ export default function AddTaskBox({
             />
           </button>
           {sectionBox && projectSelected && !projectSelected.isInbox && (
-            <div className="bg-linear-to-tr from-slate-900 to-slate-800 h-fit max-h-50 w-50 absolute left-24 mt-10 rounded gap-1 flex flex-col p-2 z-30">
+            <div className="bg-linear-to-tr from-slate-900 to-slate-800 h-fit max-h-50 w-35 md:w-50 overflow-x-hidden absolute left-24 mt-7 md:mt-10 rounded gap-1 flex flex-col p-2 z-30">
               {projectData.length > 0 && projectSelected ? (
                 projectSelected.sections.map((section, i) => {
                   return (
@@ -323,7 +327,7 @@ export default function AddTaskBox({
                           setSectionSelected(section);
                           setSectionBox(false);
                         }}
-                        className="h-8 w-full px-3 text-sm rounded-md flex flex-row items-center ml-auto cursor-pointer border-b-1 border-slate-600 hover:bg-slate-500/50 duration-200"
+                        className="h-8 w-full px-3 text-[12px] md:text-sm rounded-md flex flex-row items-center ml-auto cursor-pointer border-b-1 border-slate-600 hover:bg-slate-500/50 duration-200"
                       >
                         {"#"} {section.name}
                       </button>
@@ -331,7 +335,7 @@ export default function AddTaskBox({
                   );
                 })
               ) : (
-                <div className="h-8 w-full px-3 text-sm rounded-md flex flex-row items-center ml-auto cursor-default border-b-1 border-slate-600">
+                <div className="h-8 w-full px-3 text-[12px] md:text-sm rounded-md flex flex-row items-center ml-auto cursor-default border-b-1 border-slate-600">
                   No Projects
                   <div />
                 </div>
@@ -344,14 +348,14 @@ export default function AddTaskBox({
               setAddTaskTodoBox(false);
             }}
             type="button"
-            className="h-8 w-fit px-3 text-sm bg-slate-700 rounded-md flex flex-row items-center ml-auto cursor-pointer hover:bg-slate-500/70 duration-200"
+            className="h-6.5 md:h-8 w-fit px-2 md:px-3 text-[12px] md:text-sm bg-slate-700 rounded-sm md:rounded-md flex flex-row items-center ml-auto cursor-pointer hover:bg-slate-500/70 duration-200"
           >
             Cancel
           </button>
           <button
             type="submit"
             form="taskForm"
-            className="h-8 w-fit px-3 text-sm text-slate-100 bg-rose-800/80 drop-shadow-md rounded-md flex flex-row items-center cursor-pointer hover:bg-rose-950 duration-200"
+            className="h-6.5 md:h-8 w-fit px-2 md:px-3 text-[12px] md:text-sm text-nowrap text-slate-100 bg-rose-800/80 drop-shadow-md rounded-sm md:rounded-md flex flex-row items-center cursor-pointer hover:bg-rose-950 duration-200"
           >
             Add Task
           </button>

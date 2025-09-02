@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "invalid credentials" }, { status: 401 });
     }
 
-    // ✅ user is authenticated (NextAuth will handle the session)
+    // user is authenticated (NextAuth will handle the session)
     return NextResponse.json({ ok: true, userId: user._id });
   } catch (err: unknown) {
    if (err instanceof Error) {

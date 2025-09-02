@@ -126,11 +126,11 @@ export const HomeHader = () => {
           <div className="h-fit w-full flex flex-row items-center">
             <div
               onClick={() => setProfilOpen(!profileOpen)}
-              className="border-2 border-slate-800/80 duration-200 cursor-pointer hover:bg-slate-500/10 w-40 rounded-md h-10 flex items-center flex-row p-1 gap-1 text-sm text-slate-300"
+              className="border-2 border-slate-800/80 duration-200 cursor-pointer hover:bg-slate-500/10 w-40 rounded-md h-10 flex items-center flex-row p-1 gap-1 text-[13px] md:text-sm text-slate-300"
             >
               <Image
                 src="/media/user.png"
-                className="w-7 h-10 md:size-7 bg-slate-950 rounded-md p-0.5"
+                className="size-7 bg-slate-950 rounded-md p-0.5"
                 alt="Logo"
                 width={40}
                 height={40}
@@ -152,12 +152,12 @@ export const HomeHader = () => {
               >
                 <button
                   onClick={() => signOut()}
-                  className=" flex items-center h-10 w-full flex-row p-2 rounded-md text-rose-400 font-bold hover:bg-slate-900 cursor-pointer justify-between"
+                  className=" flex items-center h-8 md:h-10 w-full md:text-sm text-[12px] flex-row p-2 rounded-md text-rose-400 font-bold hover:bg-slate-900 cursor-pointer justify-between"
                 >
                   Logout
                   <Image
                     src="/media/logoutR.png"
-                    className="size-7"
+                    className="size-5 md:size-7"
                     alt="Logo"
                     width={40}
                     height={40}
@@ -180,10 +180,10 @@ export const HomeHader = () => {
             </div>
           </div>
 
-          <div className="h-fit w-full flex flex-col gap-2 items-center mt-8 mb-5 ">
+          <div className="h-fit w-full flex flex-col gap-2 items-center mt-5 md:mt-8 mb-3 md:mb-5 text-[13px] ">
             <div
               onClick={() => setAddBox("task")}
-              className=" h-10 w-full rounded-md bg-rose-800/10 border-2 border-rose-800/60 hover:bg-slate-800/60 cursor-pointer duration-200 flex flex-row items-center p-2 pl-3 gap-1"
+              className="h-8 md:h-10 w-full rounded-sm md:rounded-md bg-rose-800/10 border-2 border-rose-800/60 hover:bg-slate-800/60 cursor-pointer duration-200 flex flex-row items-center p-2 pl-3 gap-1"
             >
               <div>Add Task</div>
               <Image
@@ -197,7 +197,7 @@ export const HomeHader = () => {
 
             <button
               onClick={() => setActiveView("search")}
-              className=" h-10 w-full rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1"
+              className="h-8 md:h-10 w-full rounded-sm md:rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1"
             >
               <Image
                 src="/media/search.png"
@@ -213,7 +213,7 @@ export const HomeHader = () => {
                 setActiveView("inbox");
                 setActiveProject(InboxProject!);
               }}
-              className=" h-10 w-full rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1"
+              className="h-8 md:h-10 w-full rounded-sm md:rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1"
             >
               <Image
                 src="/media/inbox.png"
@@ -226,7 +226,7 @@ export const HomeHader = () => {
             </button>
             <button
               onClick={() => setActiveView("today")}
-              className=" h-10 w-full rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1"
+              className="h-8 md:h-10 w-full rounded-sm md:rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1"
             >
               <Image
                 src="/media/calander.png"
@@ -241,10 +241,10 @@ export const HomeHader = () => {
 
           <div className="border-b-2 w-full border-slate-800 rounded-3xl" />
 
-          <div className="h-fit w-full flex flex-col gap-1 items-center my-5 ">
+          <div className="h-fit w-full flex flex-col gap-1 items-center my-3 md:my-5 text-[13px] ">
             <button
               onClick={() => setAddBox("project")}
-              className=" h-10 w-full rounded-md bg-rose-800/10 border-2 border-rose-800/60 hover:bg-slate-800/60 cursor-pointer duration-200 flex flex-row items-center p-2 pl-3 gap-1"
+              className=" h-8 md:h-10 w-full rounded-sm md:rounded-md bg-rose-800/10 border-2 border-rose-800/60 hover:bg-slate-800/60 cursor-pointer duration-200 flex flex-row items-center p-2 pl-3 gap-1"
             >
               <div>My Projects</div>
               <Image
@@ -266,7 +266,7 @@ export const HomeHader = () => {
                         setActiveView("project");
                         setActiveProject(project);
                       }}
-                      className="group h-10 w-full rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1 "
+                      className="group h-8 md:h-10 w-full rounded-sm md:rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1 "
                     >
                       <Image
                         src="/media/hashtag.png"

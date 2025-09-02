@@ -6,7 +6,7 @@ export default function ProjectBox(){
     const activeProject=useTodoStore((state)=>state.activeProject)
   
     return(<>
-            <div className="text-2xl font-bold text-slate-300 mb-8">
+            <div className="text-lg md:text-2xl font-bold text-slate-300 mb-8">
           {"# "}
           {activeProject?activeProject.title:"Project"}
         </div>
