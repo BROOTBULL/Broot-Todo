@@ -74,6 +74,7 @@ export async function POST(req: NextRequest) {
       priority: 4,
       project: projectId,
       section: section._id,
+      user:userId,
     });
 
     // link todo to section

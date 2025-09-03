@@ -11,6 +11,7 @@ export default function EditTask() {
   const setSelectedTodo = useTodoStore((state) => state.setSelectedTodo);
   const projectData = useTodoStore((state) => state.projectData);
   const getProjects = useTodoStore((state) => state.getProjects);
+  const getTodos = useTodoStore((state) => state.getTodos);
 
   const [editTask, setEditTask] = useState<TodoInput>({
     task: "Task name ...",
@@ -57,6 +58,23 @@ export default function EditTask() {
     }
   }, [selectedTodo]);
 
+  const handleDelete= async(todoId:string)=>{
+    try {
+      const res = await axios.delete("/api/todo", {data: { todoId: todoId}});
+
+      console.log("Todo deleted :", res.data);
+      await getProjects();
+      await getTodos();
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error("Frontend error:", err.message);
+      } else {
+        console.error("Unknown error", err);
+      }
+    }
+    setSelectedTodo(null);
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -71,8 +89,9 @@ export default function EditTask() {
         sectionId: newLocation.sectionId,
       });
 
-      console.log("✅ Todo updated:", res.data);
+      console.log(" Todo updated:", res.data);
       await getProjects();
+      await getTodos();
     } catch (err: unknown) {
       if (err instanceof Error) {
         console.error("Frontend error:", err.message);
@@ -93,9 +112,9 @@ export default function EditTask() {
           }`}
         >
           {"# "}
-          {editTask.project.slice(0,12) || "ProjectName"}
+          {editTask.project.slice(0, 12) || "ProjectName"}
           {" / "}
-          {editTask.section.slice(0,14) || "SectionName"}
+          {editTask.section.slice(0, 14) || "SectionName"}
           <Image
             src="/media/dropDown.png"
             className="size-6"
@@ -120,8 +139,8 @@ export default function EditTask() {
               width={20}
               height={20}
             />
-            <div className="max-w-15 overflow-x-hidden">
-                {editTask.project || "Project name"}
+            <div className="max-w-15 md:max-w-26 text-nowrap overflow-x-hidden">
+              {editTask.project || "Project name"}
             </div>
             <Image
               src="/media/dropDown.png"
@@ -181,8 +200,8 @@ export default function EditTask() {
               width={20}
               height={20}
             />
-            <div className="max-w-15 overflow-x-hidden">
-            {editTask.section || "Sections"}
+            <div className="max-w-15 md:max-w-26 text-nowrap overflow-x-hidden">
+              {editTask.section || "Sections"}
             </div>
             <Image
               src="/media/dropDown.png"
@@ -255,13 +274,18 @@ export default function EditTask() {
           onClick={() =>
             setEditTask((prev) => ({
               ...prev,
-              status: prev.status === "pending" ? "in-progress" : "done",
+              status:
+                prev.status === "pending"
+                  ? "in-progress"
+                  : prev.status === "done"
+                  ? "pending"
+                  : "done",
             }))
           }
-          className={`hover:bg-emerald-900/50 ${
+          className={` ${
             editTask.status === "done"
-              ? "pointer-events-none"
-              : "bg-slate-800/80"
+              ? " hover:bg-emerald-900/20 "
+              : "bg-slate-800/80 hover:bg-emerald-900/50"
           } rounded-md duration-200 cursor-pointer flex flex-row items-center px-2 text-[12px] text-nowrap text-emerald-400/80`}
         >
           {editTask.status === "pending"
@@ -369,7 +393,7 @@ export default function EditTask() {
           className="px-2 flex flex-col w-full h-full mt-1"
         >
           <input
-            className="text-base text-slate-300 outline-none"
+            className="text-base text-slate-300 p-1 outline-none"
             type="text"
             name="task"
             autoComplete="off"
@@ -383,7 +407,7 @@ export default function EditTask() {
           ></input>
           <TextareaAutosize
             minRows={2}
-            className="text-[12px] text-slate-400 h-full px-1 resize-none scroll-auto outline-none custom-scroll"
+            className="text-[12px] text-slate-400 h-full px-1 py-2 resize-none scroll-auto outline-none custom-scroll"
             name="description"
             placeholder="Description"
             value={editTask.description}
@@ -399,18 +423,31 @@ export default function EditTask() {
         </form>
       </div>
 
-      <div className="mt-auto flex justify-end w-full">
+      <div className="mt-auto flex w-full">
+        <button
+        type="button"
+        onClick={()=>handleDelete(selectedTodo!._id)}
+        className="flex flex-row items-end m-1 cursor-pointer hover:bg-rose-400/10 p-1 pr-2 rounded-sm duration-200">
+          <Image
+            src="/media/delete.png"
+            className="size-6"
+            alt="Logo"
+            width={20}
+            height={20}
+          />
+          <div className="text-[12px]">Delete</div>
+        </button>
         <button
           type="button"
-          onClick={()=>setSelectedTodo(null)}
-          className="rounded-md p-1.5 px-4 text-[12px] duration-200 hover:bg-slate-600 text-slate-200 bg-slate-700 m-1 cursor-pointer"
+          onClick={() => setSelectedTodo(null)}
+          className="rounded-sm md:rounded-md p-1.5 px-4 text-[12px] ml-auto duration-200 hover:bg-slate-600 text-slate-200 bg-slate-700 m-1 cursor-pointer"
         >
           Cancel
         </button>
         <button
           type="submit"
           form="EditSubmit"
-          className="rounded-md p-1.5 px-4 text-[12px] duration-200 hover:bg-rose-950 text-slate-100 bg-rose-800/80 m-1 cursor-pointer"
+          className="rounded-sm md:rounded-md p-1.5 px-4 text-[12px] duration-200 hover:bg-rose-950 text-slate-100 bg-rose-800/80 m-1 cursor-pointer"
         >
           Save Task
         </button>

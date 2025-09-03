@@ -135,7 +135,7 @@ export const HomeHader = () => {
                 width={40}
                 height={40}
               />
-              {session ? session.user?.name?.slice(0,11) : "Username"}
+              {session ? session.user?.name?.slice(0, 11) : "Username"}
               <Image
                 src="/media/dropDown.png"
                 className={`${
@@ -196,7 +196,10 @@ export const HomeHader = () => {
             </div>
 
             <button
-              onClick={() => setActiveView("search")}
+              onClick={() => {
+                setActiveView("search");
+                setNavOpen(false);
+              }}
               className="h-8 md:h-10 w-full rounded-sm md:rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1"
             >
               <Image
@@ -212,6 +215,7 @@ export const HomeHader = () => {
               onClick={() => {
                 setActiveView("inbox");
                 setActiveProject(InboxProject!);
+                setNavOpen(false);
               }}
               className="h-8 md:h-10 w-full rounded-sm md:rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1"
             >
@@ -225,7 +229,10 @@ export const HomeHader = () => {
               <div>Inbox</div>
             </button>
             <button
-              onClick={() => setActiveView("today")}
+              onClick={() => {
+                setActiveView("today");
+                setNavOpen(false);
+              }}
               className="h-8 md:h-10 w-full rounded-sm md:rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1"
             >
               <Image
@@ -265,6 +272,7 @@ export const HomeHader = () => {
                       onClick={() => {
                         setActiveView("project");
                         setActiveProject(project);
+                        setNavOpen(false);
                       }}
                       className="group h-8 md:h-10 w-full rounded-sm md:rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1 "
                     >
@@ -279,7 +287,7 @@ export const HomeHader = () => {
                       <button
                         className="size-7 ml-auto cursor-pointer"
                         type="button"
-                        onClick={()=>handleDelete(project._id)}
+                        onClick={() => handleDelete(project._id)}
                       >
                         <Image
                           src="/media/delete.png"

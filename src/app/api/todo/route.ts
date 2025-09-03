@@ -3,6 +3,37 @@ import { requireUser } from "@/lib/auth";
 import { connect } from "@/app/dbConfig/dbConfig";
 import { NextRequest, NextResponse } from "next/server";
 
+export async function GET(req: NextRequest) {
+  try {
+    await connect();
+    const userId = await requireUser();
+    if (!userId) {
+      return NextResponse.json(
+        { error: "Authantication error" },
+        { status: 403 }
+      );
+    }
+
+    const todos = await Todo.find({ user: userId })
+      .populate("section", "name _id")
+      .populate("project", "title _id")
+      .sort({ createdAt: -1 });
+    return NextResponse.json({ todos }, { status: 200 });
+  } catch (err: unknown) {
+    console.error("Error creating todo:", err);
+
+    let message = "Unknown error";
+    if (err instanceof Error) {
+      message = err.message;
+    }
+
+    return NextResponse.json(
+      { error: "Internal Server Error", details: message },
+      { status: 500 }
+    );
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     await connect();
@@ -31,6 +62,7 @@ export async function POST(req: NextRequest) {
       dueDate: dueDate ? new Date(dueDate) : null,
       project: project._id,
       section: section._id,
+      user: userId,
     });
 
     section.todos.push(todo._id);
@@ -38,18 +70,18 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(todo, { status: 201 });
   } catch (err: unknown) {
-  console.error("Error creating todo:", err);
+    console.error("Error creating todo:", err);
 
-  let message = "Unknown error";
-  if (err instanceof Error) {
-    message = err.message;
+    let message = "Unknown error";
+    if (err instanceof Error) {
+      message = err.message;
+    }
+
+    return NextResponse.json(
+      { error: "Internal Server Error", details: message },
+      { status: 500 }
+    );
   }
-
-  return NextResponse.json(
-    { error: "Internal Server Error", details: message },
-    { status: 500 }
-  );
-}
 }
 
 export async function PATCH(req: NextRequest) {
@@ -57,8 +89,16 @@ export async function PATCH(req: NextRequest) {
     await connect();
     const userId = await requireUser();
 
-    const { _id, task, description, priority, dueDate,status, projectId, sectionId } =
-      await req.json();
+    const {
+      _id,
+      task,
+      description,
+      priority,
+      dueDate,
+      status,
+      projectId,
+      sectionId,
+    } = await req.json();
 
     if (!_id) {
       return NextResponse.json(
@@ -67,7 +107,7 @@ export async function PATCH(req: NextRequest) {
       );
     }
 
-    // find the todo 
+    // find the todo
     const todo = await Todo.findById(_id).populate("section project");
     if (!todo) {
       return NextResponse.json({ error: "Todo not found" }, { status: 404 });
@@ -89,12 +129,14 @@ export async function PATCH(req: NextRequest) {
     if (projectId && sectionId) {
       newProject = await Project.findOne({ owner: userId, _id: projectId });
       if (!newProject) {
-        return NextResponse.json({ error: "Forbidden project" }, { status: 403 });
+        return NextResponse.json(
+          { error: "Forbidden project" },
+          { status: 403 }
+        );
       }
 
       newSection = await Section.findOne({
-       $and:[ {_id: sectionId},
-        {_id: { $in: newProject.sections }}]
+        $and: [{ _id: sectionId }, { _id: { $in: newProject.sections } }],
       });
 
       if (!newSection) {
@@ -119,7 +161,7 @@ export async function PATCH(req: NextRequest) {
     //update fields if provided
     if (task) todo.task = task;
     if (description) todo.description = description;
-    if (status) todo.status=status;
+    if (status) todo.status = status;
     if (priority) todo.priority = priority;
     if (dueDate) todo.dueDate = new Date(dueDate);
 
@@ -138,5 +180,54 @@ export async function PATCH(req: NextRequest) {
       { error: "Internal Server Error", details: message },
       { status: 500 }
     );
+  }
+}
+
+///////// delete todo
+
+export async function DELETE(req: NextRequest) {
+  try {
+    await connect();
+    const userId = await requireUser();
+
+    const { todoId } = await req.json();
+    if (!todoId) {
+      return NextResponse.json(
+        { error: "Todo ID is required" },
+        { status: 400 }
+      );
+    }
+
+    // Check section exists
+    const todo = await Todo.findById(todoId);
+    if (!todo) {
+      return NextResponse.json({ error: "Todo not found" }, { status: 404 });
+    }
+
+    // Verify ownership via project
+    const project = await Project.findOne({
+      _id: todo.project,
+      owner: userId,
+    });
+    if (!project) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    // Delete todos + section and update project
+    await Promise.all([
+      Todo.deleteOne({ _id: todoId }),
+      Section.findByIdAndUpdate(todo.section, { $pull: { todos: todoId } }),
+    ]);
+
+    return NextResponse.json({
+      ok: true,
+      message: "Todo deleted successfully",
+    });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error("Delete Todo error:", err.message);
+      return NextResponse.json({ error: err.message }, { status: 500 });
+    }
+    return NextResponse.json({ error: "Unknown error" }, { status: 500 });
   }
 }

@@ -5,7 +5,6 @@ import { HomeHader } from "../landing-components/hader";
 import AddWindow from "../home-components/addWindow";
 import { useEffect } from "react";
 import { useTodoStore } from "../utils/store/todo.store";
-import TaskEditBoxSm from "../home-components/TaskEditBoxSm";
 
 
 export default function Home() {
@@ -22,7 +21,6 @@ useEffect(()=>{
       <HomeHader />
       <AddWindow />
       <TaskEditBox/>
-      <TaskEditBoxSm/>
       <DashBoard/>
     </div>
   );

@@ -24,6 +24,8 @@ export default function AddTaskBox({
   const setAddBox = useTodoStore((state) => state.setAddBox);
   const projectData = useTodoStore((state) => state.projectData);
   const getProjects = useTodoStore((state) => state.getProjects);
+  const getTodos = useTodoStore((state) => state.getTodos);
+
   const InboxProject = projectData.find((project) => project.isInbox === true);
 
   const [priorityBox, setPriorityBox] = useState(false);
@@ -46,7 +48,7 @@ export default function AddTaskBox({
     project: "",
     status: "pending",
     section: "",
-    dueDate: null,
+    dueDate: new Date(Date.now()),
     priority: 4,
   });
 
@@ -94,6 +96,7 @@ export default function AddTaskBox({
       console.error("Error creating task:", err);
     }
     await getProjects();
+    await getTodos();
     setAddBox(null);
     setAddTaskTodoBox(false);
     setnewTask({
@@ -154,7 +157,7 @@ export default function AddTaskBox({
             }}
             minDate={new Date()}
             dateFormat="dd/MM/yyyy" // or "yyyy-MM-dd"
-            className="border-1 border-slate-600/50 p-2 md:rounded-md rounded-sm w-25 h-6.5 md:h-8 outline-0 cursor-pointer text-slate-300 text-[12px] md:text-sm tracking-wider"
+            className="border-1 border-slate-600/50 p-2 md:rounded-md rounded-sm w-25 h-6.5 md:h-8 outline-0 cursor-pointer text-slate-300 text-[10px] md:text-[12px] tracking-wider"
             calendarClassName="custom-calendar"
             placeholderText="Date"
           />

@@ -23,6 +23,7 @@ async function createProjectWithDefaults(ownerId: string, title: string,name:str
     priority: 2,
     section: section._id,
     project: project._id,
+    user:ownerId,
   });
 
   await Section.findByIdAndUpdate(section._id, { $push: { todos: todo._id } });

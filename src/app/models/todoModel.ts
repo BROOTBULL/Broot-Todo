@@ -8,8 +8,9 @@ const TodoSchema = new Schema(
     dueDate: { type: Date, default: null },
     priority: { type: Number, default: 4 },
     status: { type: String, enum: ["pending", "in-progress", "done"], default: "pending" },
-    project: { type: Schema.Types.ObjectId, ref: "Project" }, // add this
-    section: { type: Schema.Types.ObjectId, ref: "Section" }, // add this
+    project: { type: Schema.Types.ObjectId, ref: "Project" }, 
+    section: { type: Schema.Types.ObjectId, ref: "Section" }, 
+    user: { type: Schema.Types.ObjectId, ref: "User",required:true }, 
   },
   { timestamps: true }
 );

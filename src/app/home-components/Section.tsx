@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useState } from "react";
 import { Section, useTodoStore } from "../utils/store/todo.store";
 import TodoList from "./todoList";
-import AddSection from "./AddSection";
 import AddTaskBox from "./addtaskBox";
 
 export default function SectionBox({ section }: { section: Section }) {
@@ -16,7 +15,6 @@ export default function SectionBox({ section }: { section: Section }) {
   const [addTaskTodoBox, setAddTaskTodoBox] = useState(false);
 
   const [sectionOption, setSectionOption] = useState(false);
-  const [addSectionBox, setAddSectionBox] = useState(false);
 
   async function handleSectionDelete(sectionId: string) {
     try {
@@ -59,7 +57,7 @@ export default function SectionBox({ section }: { section: Section }) {
             className="hover:bg-slate-800 rounded-md p-1 ml-auto md:mr-3 cursor-pointer"
           >
             <Image
-              src="/media/OptionD2.png"
+              src="/media/options.png"
               className="size-5 "
               alt="Logo"
               width={20}
@@ -98,12 +96,12 @@ export default function SectionBox({ section }: { section: Section }) {
       ) : (
         <button
           onClick={() => setAddTaskTodoBox(true)}
-          className={`w-full select-none text-[12px] md:text-sm flex-row p-1 px-2 text-slate-600 items-center bg-slate-900/20 cursor-pointer hover:bg-slate-900/70 rounded-md my-1 ${
+          className={`w-full select-none text-[12px] md:text-sm flex-row p-1 px-2 text-slate-600 items-center bg-slate-900/20 cursor-pointer hover:bg-slate-900/70 rounded-md mt-1 mb-5 ${
             section ? "flex" : "hidden"
           }`}
         >
           <Image
-            src="/media/closeOption.png"
+            src="/media/addButton.png"
             className="size-5 mr-2 mb-1 invert opacity-35"
             alt="Logo"
             width={20}
@@ -112,20 +110,7 @@ export default function SectionBox({ section }: { section: Section }) {
           Add Task
         </button>
       )}
-      <div className="w-full h-fit">
-        {addSectionBox ? (
-          <AddSection setAddSectionBox={setAddSectionBox} />
-        ) : (
-          <button
-            onClick={() => setAddSectionBox(!addSectionBox)}
-            className="h-8 w-full flex justify-center my-1 items-center cursor-pointer group"
-          >
-            <div className=" text-[12px] md:text-sm text-slate-700 md:text-slate-900 group-hover:text-slate-500 duration-200">
-              ------ Add Section ------
-            </div>
-          </button>
-        )}
-      </div>
+      
     </>
   );
 }

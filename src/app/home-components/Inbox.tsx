@@ -47,50 +47,62 @@ export default function Inbox() {
       ) : (
         <>
           <div className=" border-b-1 h-20 rounded-sm border-slate-700 p-1 px-2 flex flex-col bg-slate-900/60 mb-2">
-            <Skeleton
+            <div className="w-[50%] h-fit">
+              <Skeleton
               height={14}
-              width={400}
+              className="w-30"
               borderRadius={2}
               baseColor="#334155"
               highlightColor="#475569"
             />
-            <Skeleton
+            </div>
+            <div className="w-[90%] h-fit">
+              <Skeleton
               height={12}
-              width={600}
+              className="w-30"
               borderRadius={2}
               baseColor="#334155"
               highlightColor="#475569"
             />
-            <Skeleton
+            </div>
+            <div className="w-[70%] h-fit">
+              <Skeleton
               height={12}
-              width={300}
+              className="w-30"
               borderRadius={2}
               baseColor="#334155"
               highlightColor="#475569"
             />
+            </div>
           </div>
           <div className=" border-b-1 h-20 rounded-sm border-slate-700 p-1 px-2 flex flex-col bg-slate-900/60">
-            <Skeleton
+            <div className="w-[50%] h-fit">
+              <Skeleton
               height={14}
-              width={400}
+              className="w-30"
               borderRadius={2}
               baseColor="#334155"
               highlightColor="#475569"
             />
-            <Skeleton
+            </div>
+            <div className="w-[90%] h-fit">
+              <Skeleton
               height={12}
-              width={600}
+              className="w-30"
               borderRadius={2}
               baseColor="#334155"
               highlightColor="#475569"
             />
-            <Skeleton
+            </div>
+            <div className="w-[70%] h-fit">
+              <Skeleton
               height={12}
-              width={300}
+              className="w-30"
               borderRadius={2}
               baseColor="#334155"
               highlightColor="#475569"
             />
+            </div>
           </div>
         </>
       )}
