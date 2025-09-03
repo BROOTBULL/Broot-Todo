@@ -140,7 +140,7 @@ export default function EditTask() {
               height={20}
             />
             <div className="max-w-15 md:max-w-26 text-nowrap overflow-x-hidden">
-              {editTask.project || "Project name"}
+              {editTask.project || "Select Project"}
             </div>
             <Image
               src="/media/dropDown.png"
@@ -201,7 +201,7 @@ export default function EditTask() {
               height={20}
             />
             <div className="max-w-15 md:max-w-26 text-nowrap overflow-x-hidden">
-              {editTask.section || "Sections"}
+              {editTask.section || "Select Section"}
             </div>
             <Image
               src="/media/dropDown.png"

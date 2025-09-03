@@ -11,6 +11,7 @@ import axios from "axios";
 
 const Hader = () => {
   const router = useRouter();
+  const { data: session } = useSession();
 
   return (
     <motion.div
@@ -46,18 +47,33 @@ const Hader = () => {
           Contact us
         </div>
         <div className="h-10 w-0.5 rounded-4xl bg-slate-600" />
-        <div
-          onClick={() => router.push("/login")}
-          className="p-2 rounded-lg hover:bg-slate-800 text-slate-300 cursor-pointer duration-200"
-        >
-          Log In
-        </div>
-        <div
-          onClick={() => router.push("/signUp")}
-          className="p-2 py-3 rounded-lg hover:from-slate-800 hover:to-indigo-900 cursor-pointer duration-300 bg-linear-to-br from-slate-900 to-indigo-950 "
-        >
-          Start for free
-        </div>
+        {session?.user ? (
+          <div className="flex flex-row items-center gap-2 mx-2">
+            <div className="text-slate-100 font-bold cursor-pointer">{session.user.name}</div>
+            <Image
+              src={session?.user?.image || "/media/user.png"} // fallback if no image
+              className="size-10 bg-slate-950 rounded-md p-0.5"
+              alt="User Avatar"
+              width={40}
+              height={40}
+            />
+          </div>
+        ) : (
+          <div className="flex flex-row items-center">
+            <div
+              onClick={() => router.push("/login")}
+              className="p-2 rounded-lg hover:bg-slate-800 text-slate-300 cursor-pointer duration-200"
+            >
+              Log In
+            </div>
+            <div
+              onClick={() => router.push("/signUp")}
+              className="p-2 py-3 rounded-lg hover:from-slate-800 hover:to-indigo-900 cursor-pointer duration-300 bg-linear-to-br from-slate-900 to-indigo-950 "
+            >
+              Start for free
+            </div>
+          </div>
+        )}
       </div>
     </motion.div>
   );
@@ -129,9 +145,9 @@ export const HomeHader = () => {
               className="border-2 border-slate-800/80 duration-200 cursor-pointer hover:bg-slate-500/10 w-40 rounded-md h-10 flex items-center flex-row p-1 gap-1 text-[13px] md:text-sm text-slate-300"
             >
               <Image
-                src="/media/user.png"
+                src={session?.user?.image || "/media/user.png"} // fallback if no image
                 className="size-7 bg-slate-950 rounded-md p-0.5"
-                alt="Logo"
+                alt="User Avatar"
                 width={40}
                 height={40}
               />

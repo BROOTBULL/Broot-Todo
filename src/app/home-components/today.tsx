@@ -55,7 +55,7 @@ const todaysTodos = todoData.filter((todo) => {
               }`}
             >
               <Image
-                src="/media/closeOption.png"
+                src="/media/addButton.png"
                 className="size-5 mr-2 mb-1 invert opacity-35"
                 alt="Logo"
                 width={20}

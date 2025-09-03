@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 
 
-async function createProjectWithDefaults(ownerId: string, title: string,name:string, isInbox = false) {
+export async function createProjectWithDefaults(ownerId: string, title: string,name:string, isInbox = false) {
   
   const section = await Section.create({ name: name , todos: [] });
 
