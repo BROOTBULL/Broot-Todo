@@ -5,6 +5,8 @@ import { useTodoStore } from "../utils/store/todo.store";
 import TextareaAutosize from "react-textarea-autosize";
 import { TodoInput } from "./addtaskBox";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
+
 
 export default function EditTask() {
   const selectedTodo = useTodoStore((state) => state.selectedTodo);
@@ -393,7 +395,7 @@ export default function EditTask() {
           className="px-2 flex flex-col w-full h-full mt-1"
         >
           <input
-            className="text-base text-slate-300 p-1 outline-none"
+            className="text-lg text-slate-300 p-1 outline-none "
             type="text"
             name="task"
             autoComplete="off"
@@ -407,7 +409,7 @@ export default function EditTask() {
           ></input>
           <TextareaAutosize
             minRows={2}
-            className="text-[12px] text-slate-400 h-full px-1 py-2 resize-none scroll-auto outline-none custom-scroll"
+            className="text-sm text-slate-400 h-full px-1 py-2 resize-none scroll-auto outline-none custom-scroll"
             name="description"
             placeholder="Description"
             value={editTask.description}

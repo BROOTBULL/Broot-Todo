@@ -113,9 +113,9 @@ body {
   scrollbar-width: thin;
   scrollbar-color: #50769e  rgb(52, 62, 94);
 }
-.custom-scroll-w {
+.custom-scroll-d {
   scrollbar-width: thin;
-  scrollbar-color: #919191  rgb(210, 210, 210);
+  scrollbar-color: #1c1c2a  rgb(10, 10, 22);
 }
 /* Apply Tailwind via @apply */
 .custom-calendar {

@@ -49,7 +49,9 @@ const Hader = () => {
         <div className="h-10 w-0.5 rounded-4xl bg-slate-600" />
         {session?.user ? (
           <div className="flex flex-row items-center gap-2 mx-2">
-            <div className="text-slate-100 font-bold cursor-pointer">{session.user.name}</div>
+            <div className="text-slate-100 font-bold cursor-pointer">
+              {session.user.name}
+            </div>
             <Image
               src={session?.user?.image || "/media/user.png"} // fallback if no image
               className="size-10 bg-slate-950 rounded-md p-0.5"
@@ -93,12 +95,14 @@ export const HomeHader = () => {
   const { data: session } = useSession();
 
   const [profileOpen, setProfilOpen] = useState(false);
+  const getProjects = useTodoStore((state) => state.getProjects);
 
   async function handleDelete(projectId: string) {
     try {
       const deleteResponse = await axios.delete("/api/projects", {
         data: { projectId },
       });
+      await getProjects();
       console.log(deleteResponse.data);
     } catch (err) {
       console.error(err);
@@ -246,6 +250,22 @@ export const HomeHader = () => {
             </button>
             <button
               onClick={() => {
+                setActiveView("assistant");
+                setNavOpen(false);
+              }}
+              className="h-8 md:h-10 w-full rounded-sm md:rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1"
+            >
+              <Image
+                src="/media/assistant.png"
+                className="size-7 p-0.5 "
+                alt="Logo"
+                width={40}
+                height={40}
+              />
+              <div>Project Assistant</div>
+            </button>
+            <button
+              onClick={() => {
                 setActiveView("today");
                 setNavOpen(false);
               }}
@@ -303,7 +323,10 @@ export const HomeHader = () => {
                       <button
                         className="size-7 ml-auto cursor-pointer"
                         type="button"
-                        onClick={() => handleDelete(project._id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(project._id);
+                        }}
                       >
                         <Image
                           src="/media/delete.png"

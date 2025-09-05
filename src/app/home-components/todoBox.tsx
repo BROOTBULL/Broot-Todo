@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Todo, useTodoStore } from "../utils/store/todo.store";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
 
 export default function TodoBox({ todo }: { todo: Todo }) {
   const setSelectedTodo = useTodoStore((state) => state.setSelectedTodo);
@@ -37,7 +38,7 @@ export default function TodoBox({ todo }: { todo: Todo }) {
   return (
     <div
       onClick={() => {
-        setSelectedTodo(selectedTodo ? null : todo);
+        setSelectedTodo(todo);
       }}
       className={` ${
         selectedTodo?._id === todo._id
@@ -63,11 +64,13 @@ export default function TodoBox({ todo }: { todo: Todo }) {
           {todo ? todo.task : "Task name..."}
         </div>
         <div className="text-[12px] pl-1 text-slate-400 h-4 overflow-y-hidden">
-          {todo
-            ? todo.description.length > 25
-              ? todo.description.slice(0, 25) + "..."
-              : todo.description
-            : "Description..."}
+          <ReactMarkdown>
+            {todo
+              ? todo.description.length > 25
+                ? todo.description.slice(0, 25) + "..."
+                : todo.description
+              : "Description..."}
+          </ReactMarkdown>
         </div>
         <div className="text-[10px] px-0.5 pt-1.5 text-slate-400 tracking-wider flex items-center flex-row select-none">
           <Image
@@ -91,12 +94,21 @@ export default function TodoBox({ todo }: { todo: Todo }) {
           </div>
         )}
         <button
-          onClick={(e) =>{
-            e.stopPropagation()
-            handleTodoStatus(todo)}}
-          className={`${todo.status !== "done"?"hover:bg-emerald-900/40 ":"pointer-events-none"} flex flex-row duration-200 rounded-md mt-auto p-1 group-hover:flex lg:hidden px-2 cursor-pointer select-none text-[11px] md:text-sm text-emerald-400/70 items-center`}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleTodoStatus(todo);
+          }}
+          className={`${
+            todo.status !== "done"
+              ? "hover:bg-emerald-900/40 "
+              : "pointer-events-none"
+          } flex flex-row duration-200 rounded-md mt-auto p-1 group-hover:flex lg:hidden px-2 cursor-pointer select-none text-[11px] md:text-sm text-emerald-400/70 items-center`}
         >
-          {todo.status === "pending" ? "Start Working" : todo.status==="done"?"Completed":"Mark Complete"}
+          {todo.status === "pending"
+            ? "Start Working"
+            : todo.status === "done"
+            ? "Completed"
+            : "Mark Complete"}
           <Image
             src={`/media/${todo.status === "pending" ? "working" : "done"}.png`}
             className="size-3 md:size-5"
