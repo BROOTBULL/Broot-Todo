@@ -38,9 +38,9 @@ export default function ProjectAssistant() {
   }
 
   return (
-    <div className="h-[90vh] flex flex-col justify-center ">
+    <div className="h-[90vh] flex flex-col">
       <div className="text-2xl font-bold text-slate-300 mb-5">{responseProject?.title||"Project Assistant"}</div>
-      {!loading ? (<div className="h-[75vh] custom-scroll-d overflow-y-auto scroll-smooth ">{
+      {!loading ? (<div className="h-[80vh] md:h-[75vh] custom-scroll-d overflow-y-auto scroll-smooth ">{
         projectData.find((project)=>project._id===responseProject?._id)?.sections.map((section, i) => {
           return (
             <div key={i} className="flex flex-col">
@@ -98,7 +98,7 @@ export default function ProjectAssistant() {
           </div>
         </>
       )}
-      <div className="w-[90%] h-fit flex gap-3 mt-auto self-center flex-row">
+      <div className="w-[90%] fixed md:static h-fit flex gap-3 bottom-10 md:mt-auto md:self-center flex-row">
         <form
           onSubmit={(e) => handleSubmit(e)}
           id="assistantForm"
@@ -115,7 +115,7 @@ export default function ProjectAssistant() {
           <button
             type="submit"
             form="assistantForm"
-            className="text-[12px] bg-slate-800/40 hover:bg-slate-800 hover:shadow-sm/30 hover:shadow-slate-300/20 px-3 p-1 h-fit rounded-full ml-auto text-slate-300 cursor-pointer hover:text-slate-100 duration-200"
+            className="text-[12px] text-nowrap md:bg-slate-800/40 hover:bg-slate-800 hover:shadow-sm/30 hover:shadow-slate-300/20 px-3 p-1 h-fit rounded-full ml-auto text-slate-300 cursor-pointer hover:text-slate-100 duration-200"
           >
             {loading?"Generating Project Plan ...":"Generate Project"}
           </button>
