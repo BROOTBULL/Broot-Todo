@@ -1,24 +1,24 @@
-import Footer from "./landing-components/footer";
-import Hader from "./landing-components/hader";
-import Hero from "./landing-components/hero";
-import HeroBG from "./landing-components/herobackground";
-import HowToUse from "./landing-components/howtouse";
-import Reviews from "./landing-components/reviews";
-import StartBtn from "./landing-components/startBtn";
+"use client";
+import { useEffect, useState } from "react";
+import Loader from "./landing-components/loader";
+import Homepage from "./landing-components/homepage";
 
-const Homepage = () => {
-  return (
-    <div className="bg-linear-to-bl from-black via-slate-900 to-black">
-      <div>
-        <HeroBG />
-        <Hader />
-        <Hero />
-      </div>
-      <Reviews />
-      <HowToUse />
-      <StartBtn />
-      <Footer />
-    </div>
-  );
-};
-export default Homepage;
+export default function Page() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // If the page is already fully loaded
+    if (document.readyState === "complete") {
+      setLoading(false);
+    } else {
+      // Wait for window load (all assets like images/fonts)
+      const handleLoad = () => setLoading(false);
+      window.addEventListener("load", handleLoad);
+      return () => window.removeEventListener("load", handleLoad);
+    }
+  }, []);
+
+  if (loading) return <Loader />;
+
+  return <Homepage />;
+}

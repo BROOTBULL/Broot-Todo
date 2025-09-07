@@ -39,13 +39,13 @@ export default function Search() {
       if (priorityOrder === null) return 0;
       return priorityOrder ? a.priority - b.priority : b.priority - a.priority;
     });
- 
+
   return (
     <div>
       <div className="text-2xl font-bold text-slate-300 mb-8">Search</div>
       <div className="w-full h-fit flex gap-3 mb-12 flex-row">
         <form
-          onSubmit={(e)=>e.preventDefault()}
+          onSubmit={(e) => e.preventDefault()}
           className="w-full h-6.5 md:h-8 md:rounded-md rounded-sm border-2 border-slate-800/80 flex flex-row"
         >
           <input
@@ -163,50 +163,62 @@ export default function Search() {
       ) : (
         <>
           <div className=" border-b-1 h-20 rounded-sm border-slate-700 p-1 px-2 flex flex-col bg-slate-900/60 mb-2">
-            <Skeleton
-              height={14}
-              width={400}
-              borderRadius={2}
-              baseColor="#334155"
-              highlightColor="#475569"
-            />
-            <Skeleton
-              height={12}
-              width={600}
-              borderRadius={2}
-              baseColor="#334155"
-              highlightColor="#475569"
-            />
-            <Skeleton
-              height={12}
-              width={300}
-              borderRadius={2}
-              baseColor="#334155"
-              highlightColor="#475569"
-            />
+            <div className="w-[50%] h-fit">
+              <Skeleton
+                height={14}
+                className="w-30"
+                borderRadius={2}
+                baseColor="#334155"
+                highlightColor="#475569"
+              />
+            </div>
+            <div className="w-[90%] h-fit">
+              <Skeleton
+                height={12}
+                className="w-30"
+                borderRadius={2}
+                baseColor="#334155"
+                highlightColor="#475569"
+              />
+            </div>
+            <div className="w-[70%] h-fit">
+              <Skeleton
+                height={12}
+                className="w-30"
+                borderRadius={2}
+                baseColor="#334155"
+                highlightColor="#475569"
+              />
+            </div>
           </div>
           <div className=" border-b-1 h-20 rounded-sm border-slate-700 p-1 px-2 flex flex-col bg-slate-900/60">
-            <Skeleton
-              height={14}
-              width={400}
-              borderRadius={2}
-              baseColor="#334155"
-              highlightColor="#475569"
-            />
-            <Skeleton
-              height={12}
-              width={600}
-              borderRadius={2}
-              baseColor="#334155"
-              highlightColor="#475569"
-            />
-            <Skeleton
-              height={12}
-              width={300}
-              borderRadius={2}
-              baseColor="#334155"
-              highlightColor="#475569"
-            />
+            <div className="w-[50%] h-fit">
+              <Skeleton
+                height={14}
+                className="w-30"
+                borderRadius={2}
+                baseColor="#334155"
+                highlightColor="#475569"
+              />
+            </div>
+            <div className="w-[90%] h-fit">
+              <Skeleton
+                height={12}
+                className="w-30"
+                borderRadius={2}
+                baseColor="#334155"
+                highlightColor="#475569"
+              />
+            </div>
+            <div className="w-[70%] h-fit">
+              <Skeleton
+                height={12}
+                className="w-30"
+                borderRadius={2}
+                baseColor="#334155"
+                highlightColor="#475569"
+              />
+            </div>
           </div>
         </>
       )}

@@ -12,29 +12,28 @@ export default function Today() {
 
   const todoData = useTodoStore((state) => state.todoData);
   const getTodos = useTodoStore((state) => state.getTodos);
-  const [loading,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
 
-const today = new Date();
+  const today = new Date();
 
-const todaysTodos = todoData.filter((todo) => {
-  if (!todo.dueDate) return false;
+  const todaysTodos = todoData.filter((todo) => {
+    if (!todo.dueDate) return false;
 
-  const due = new Date(todo.dueDate); // ✅ ensure it's a Date object
+    const due = new Date(todo.dueDate); // ✅ ensure it's a Date object
 
-  return (
-    due.getDate() === today.getDate() &&
-    due.getMonth() === today.getMonth() &&
-    due.getFullYear() === today.getFullYear()
-  );
-});
-
+    return (
+      due.getDate() === today.getDate() &&
+      due.getMonth() === today.getMonth() &&
+      due.getFullYear() === today.getFullYear()
+    );
+  });
 
   useEffect(() => {
     const getTodo = async () => {
-      setLoading(true)
+      setLoading(true);
       await getTodos();
       console.log(todoData);
-      setLoading(false)
+      setLoading(false);
     };
     getTodo();
   }, []);
@@ -68,50 +67,62 @@ const todaysTodos = todoData.filter((todo) => {
       ) : (
         <>
           <div className=" border-b-1 h-20 rounded-sm border-slate-700 p-1 px-2 flex flex-col bg-slate-900/60 mb-2">
-            <Skeleton
-              height={14}
-              width={400}
-              borderRadius={2}
-              baseColor="#334155"
-              highlightColor="#475569"
-            />
-            <Skeleton
-              height={12}
-              width={600}
-              borderRadius={2}
-              baseColor="#334155"
-              highlightColor="#475569"
-            />
-            <Skeleton
-              height={12}
-              width={300}
-              borderRadius={2}
-              baseColor="#334155"
-              highlightColor="#475569"
-            />
+            <div className="w-[50%] h-fit">
+              <Skeleton
+                height={14}
+                className="w-30"
+                borderRadius={2}
+                baseColor="#334155"
+                highlightColor="#475569"
+              />
+            </div>
+            <div className="w-[90%] h-fit">
+              <Skeleton
+                height={12}
+                className="w-30"
+                borderRadius={2}
+                baseColor="#334155"
+                highlightColor="#475569"
+              />
+            </div>
+            <div className="w-[70%] h-fit">
+              <Skeleton
+                height={12}
+                className="w-30"
+                borderRadius={2}
+                baseColor="#334155"
+                highlightColor="#475569"
+              />
+            </div>
           </div>
           <div className=" border-b-1 h-20 rounded-sm border-slate-700 p-1 px-2 flex flex-col bg-slate-900/60">
-            <Skeleton
-              height={14}
-              width={400}
-              borderRadius={2}
-              baseColor="#334155"
-              highlightColor="#475569"
-            />
-            <Skeleton
-              height={12}
-              width={600}
-              borderRadius={2}
-              baseColor="#334155"
-              highlightColor="#475569"
-            />
-            <Skeleton
-              height={12}
-              width={300}
-              borderRadius={2}
-              baseColor="#334155"
-              highlightColor="#475569"
-            />
+            <div className="w-[50%] h-fit">
+              <Skeleton
+                height={14}
+                className="w-30"
+                borderRadius={2}
+                baseColor="#334155"
+                highlightColor="#475569"
+              />
+            </div>
+            <div className="w-[90%] h-fit">
+              <Skeleton
+                height={12}
+                className="w-30"
+                borderRadius={2}
+                baseColor="#334155"
+                highlightColor="#475569"
+              />
+            </div>
+            <div className="w-[70%] h-fit">
+              <Skeleton
+                height={12}
+                className="w-30"
+                borderRadius={2}
+                baseColor="#334155"
+                highlightColor="#475569"
+              />
+            </div>
           </div>
         </>
       )}

@@ -162,3 +162,71 @@ body {
 }
 
 
+
+
+@keyframes diagonalMove {
+  0% {
+    transform: translate(-100px, 100px) rotateX(46deg) rotate(45deg);
+    opacity: 0;
+  }
+  40% {
+    transform: translate(0px, 0px) rotateX(46deg) rotate(45deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(0px, 0px) rotateX(46deg) rotate(45deg);
+    opacity: 1;
+  }
+  60% {
+    transform: translate(0px, 0px) rotateX(46deg) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-100px, 50px) rotateX(46deg) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+@keyframes fallingMove {
+  0% {
+    transform: translate(0px, -50px) rotateX(46deg) rotate(45deg);
+    opacity: 0;
+  }
+  40% {
+    transform: translate(0, 0px) rotateX(46deg) rotate(45deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(0, 0px) rotateX(46deg) rotate(45deg);
+    opacity: 1;
+  }
+  60% {
+    transform: translate(0, 0px) rotateX(46deg) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0px, 50px) rotateX(46deg) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+.landingloader {
+  animation: fallingMove 4s ease-in-out infinite;
+  animation-fill-mode: both;
+  animation-delay: 0.4s;
+
+}
+.landingloader1 {
+  animation: fallingMove 4s ease-in-out infinite;
+  animation-fill-mode: both;
+}
+.landingloader2 {
+  animation: diagonalMove 4s ease-in-out infinite;
+  animation-fill-mode: both;
+  animation-delay: 0.4s;
+}
+.landingloader3 {
+  animation: diagonalMove 4s ease-in-out infinite;
+  animation-fill-mode: both;
+  animation-delay: 0.6s;
+}
