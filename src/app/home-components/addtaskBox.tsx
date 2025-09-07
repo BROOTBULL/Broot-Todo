@@ -233,8 +233,7 @@ export default function AddTaskBox({
             )}
           </div>
         </div>
-        <div className="bg-slate-600/40 my-2 w-full h-0.5 rounded-full" />
-        <div className="flex flex-row w-full h-8 gap-1.5">
+        <div className="flex flex-row w-full h-8 gap-1.5 mt-2">
           <button
             onClick={() => {
               setProjectBox(!projectBox);
@@ -276,7 +275,7 @@ export default function AddTaskBox({
                         type="button"
                         className="h-6 md:h-8 w-full px-3 text-[12px] md:text-sm rounded-md flex flex-row items-center ml-auto cursor-pointer border-b-1 border-slate-600 hover:bg-slate-500/50 duration-200"
                       >
-                        {"#"} {project.title}
+                        {"#"} {project.title.length>20?project.title.slice(0,20)+"...":project.title}
                       </button>
                     </div>
                   );
@@ -332,7 +331,7 @@ export default function AddTaskBox({
                         }}
                         className="h-8 w-full px-3 text-[12px] md:text-sm rounded-md flex flex-row items-center ml-auto cursor-pointer border-b-1 border-slate-600 hover:bg-slate-500/50 duration-200"
                       >
-                        {"#"} {section.name}
+                        {"#"} {section.name.length>20?section.name.slice(0,20)+"...":section.name}
                       </button>
                     </div>
                   );

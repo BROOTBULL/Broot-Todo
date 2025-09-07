@@ -119,7 +119,7 @@ body {
 }
 /* Apply Tailwind via @apply */
 .custom-calendar {
-  @apply bg-linear-to-br from-slate-800 to-slate-700 !border-0 rounded-lg p-2 text-gray-800;
+  @apply bg-linear-to-br from-slate-800 to-slate-700 !border-0 rounded-lg p-2 text-gray-800 right-20 ;
 }
 
 /* Days */

@@ -10,6 +10,8 @@ import ProjectAssistant from "./ProjectAssistant";
 export default function DashBoard() {
   const navOpen = useTodoStore((state) => state.navOpen);
   const activeView = useTodoStore((state) => state.activeView);
+  const selectedTodo = useTodoStore((state) => state.selectedTodo);
+
   function renderComponent(activeView: string): ReactNode {
     switch (activeView) {
       case "inbox":
@@ -28,7 +30,7 @@ export default function DashBoard() {
   }
 
   return (
-    <div className={`h-full w-full lg:w-[70%] p-3 sm:p-5 pb-50 pt-4.5`}>
+    <div className={`h-full w-full ${ selectedTodo?"lg:w-[70%]":"lg:w-[85%]"} duration-150 ease-in-out p-3 sm:p-5 pt-4.5`}>
       <div
         className={`h-full p-3 pt-10 lg:pt-1 ${
           navOpen

@@ -12,20 +12,22 @@ export default function ProjectAssistant() {
 
   const [prompt, setPrompt] = useState("");
   const [loading, setloading] = useState(false);
-  const [responseProject,setResponseProject]=useState<Project>()
+  const [responseProject, setResponseProject] = useState<Project>();
+  const [gettingStarted,setGettingStarted]=useState(true)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
       setloading(true);
+      setGettingStarted(false)
       const AssistantResponse = await axios.post("/api/assistant", {
         prompt: prompt,
       });
 
       console.log("Created project:", AssistantResponse.data);
-      setResponseProject(AssistantResponse.data)
+      setResponseProject(AssistantResponse.data);
       await getProjects();
-      setPrompt("")
+      setPrompt("");
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         console.error("API error:", error.response?.data || error.message);
@@ -38,71 +40,90 @@ export default function ProjectAssistant() {
   }
 
   return (
-    <div className="h-[90vh] flex flex-col">
-      <div className="text-2xl font-bold text-slate-300 mb-5">{responseProject?.title||"Project Assistant"}</div>
-      {!loading ? (<div className="h-[80vh] md:h-[75vh] custom-scroll-d overflow-y-auto scroll-smooth ">{
-        projectData.find((project)=>project._id===responseProject?._id)?.sections.map((section, i) => {
-          return (
-            <div key={i} className="flex flex-col">
-              <SectionBox section={section} />
-            </div>
-          );
-        })
-      }</div>) : (
-        <>
+    <div className="h-[95vh] flex flex-col">
+      <div className="text-2xl font-bold text-slate-300 mb-5">
+        {responseProject?.title || "Project Assistant"}
+      </div>
+      {!loading ? (
+        <div className={`${!gettingStarted?"h-[80%]":"h-[35%]"} custom-scroll-d overflow-y-auto scroll-smooth `}>
+          {projectData
+            .find((project) => project._id === responseProject?._id)
+            ?.sections.map((section, i) => {
+              return (
+                <div key={i} className="flex flex-col">
+                  <SectionBox section={section} />
+                </div>
+              );
+            })}
+        </div>
+      ) : (
+        <div className="h-[85%] w-full flex flex-col">
           <div className=" border-b-1 h-20 rounded-sm border-slate-700 p-1 px-2 flex flex-col bg-slate-900/60 mb-2">
-            <Skeleton
-              height={14}
-              width={400}
-              borderRadius={2}
-              baseColor="#334155"
-              highlightColor="#475569"
-            />
-            <Skeleton
-              height={12}
-              width={600}
-              borderRadius={2}
-              baseColor="#334155"
-              highlightColor="#475569"
-            />
-            <Skeleton
-              height={12}
-              width={300}
-              borderRadius={2}
-              baseColor="#334155"
-              highlightColor="#475569"
-            />
+            <div className="w-[50%] h-fit">
+              <Skeleton
+                height={14}
+                className="w-30"
+                borderRadius={2}
+                baseColor="#334155"
+                highlightColor="#475569"
+              />
+            </div>
+            <div className="w-[90%] h-fit">
+              <Skeleton
+                height={12}
+                className="w-30"
+                borderRadius={2}
+                baseColor="#334155"
+                highlightColor="#475569"
+              />
+            </div>
+            <div className="w-[70%] h-fit">
+              <Skeleton
+                height={12}
+                className="w-30"
+                borderRadius={2}
+                baseColor="#334155"
+                highlightColor="#475569"
+              />
+            </div>
           </div>
           <div className=" border-b-1 h-20 rounded-sm border-slate-700 p-1 px-2 flex flex-col bg-slate-900/60">
-            <Skeleton
-              height={14}
-              width={400}
-              borderRadius={2}
-              baseColor="#334155"
-              highlightColor="#475569"
-            />
-            <Skeleton
-              height={12}
-              width={600}
-              borderRadius={2}
-              baseColor="#334155"
-              highlightColor="#475569"
-            />
-            <Skeleton
-              height={12}
-              width={300}
-              borderRadius={2}
-              baseColor="#334155"
-              highlightColor="#475569"
-            />
+            <div className="w-[50%] h-fit">
+              <Skeleton
+                height={14}
+                className="w-30"
+                borderRadius={2}
+                baseColor="#334155"
+                highlightColor="#475569"
+              />
+            </div>
+            <div className="w-[90%] h-fit">
+              <Skeleton
+                height={12}
+                className="w-30"
+                borderRadius={2}
+                baseColor="#334155"
+                highlightColor="#475569"
+              />
+            </div>
+            <div className="w-[70%] h-fit">
+              <Skeleton
+                height={12}
+                className="w-30"
+                borderRadius={2}
+                baseColor="#334155"
+                highlightColor="#475569"
+              />
+            </div>
           </div>
-        </>
+        </div>
       )}
-      <div className="w-[90%] fixed md:static h-fit flex gap-3 bottom-10 md:mt-auto md:self-center flex-row">
+      <div className="w-[90%] h-fit flex gap-3 self-center flex-col text-center ">
+        {gettingStarted&&<div className="text-xl font-semibold text-slate-300">I’m your project planner! What should we plan today?</div>}
         <form
           onSubmit={(e) => handleSubmit(e)}
           id="assistantForm"
-          className="w-full h-8 md:h-10 md:rounded-full bg-slate-900/60 rounded-sm border-2 border-slate-800/80 flex flex-row px-2 items-center"
+          className="w-full h-8 md:h-10 md:rounded-full mt-4 bg-slate-900 rounded-sm border-2 border-slate-800/80 flex flex-row px-2 items-center"
         >
           <input
             type="text"
@@ -117,7 +138,7 @@ export default function ProjectAssistant() {
             form="assistantForm"
             className="text-[12px] text-nowrap md:bg-slate-800/40 hover:bg-slate-800 hover:shadow-sm/30 hover:shadow-slate-300/20 px-3 p-1 h-fit rounded-full ml-auto text-slate-300 cursor-pointer hover:text-slate-100 duration-200"
           >
-            {loading?"Generating Project Plan ...":"Generate Project"}
+            {loading ? "Generating Project Plan ..." : "Generate Project"}
           </button>
         </form>
       </div>

@@ -30,7 +30,7 @@ export default function SectionBox({ section }: { section: Section }) {
 
   return (
     <>
-      <div className="border-b-2 border-slate-500 w-full rounded-md h-10">
+      <div className="border-b-2 border-slate-500 w-full rounded-md h-fit py-1">
         <div className="flex flex-row items-center h-full w-full ">
           <button
             onClick={() => setShowTodo(!showTodo)}
@@ -38,16 +38,16 @@ export default function SectionBox({ section }: { section: Section }) {
           >
             <Image
               src="/media/dropDown.png"
-              className="size-6"
+              className="size-5 md:size-6"
               alt="Logo"
               width={20}
               height={20}
             />
           </button>
-          <div className="mx-1 text-slate-300 text-base md:text-lg font-bold">
+          <div className="mx-1 text-slate-300 text-sm md:text-lg font-bold">
             {section ? section.name : "SectionName"}
           </div>
-          <div className="ml-2 text-slate-600">
+          <div className="ml-2 text-slate-600 text-sm md:text-lg">
             {"("}
             {section ? section.todos.length : ""}
             {")"}
@@ -96,13 +96,13 @@ export default function SectionBox({ section }: { section: Section }) {
       ) : (
         <button
           onClick={() => setAddTaskTodoBox(true)}
-          className={`w-full select-none text-[12px] md:text-sm flex-row p-1 px-2 text-slate-600 items-center bg-slate-900/20 cursor-pointer hover:bg-slate-900/70 rounded-md mt-1 mb-5 ${
+          className={`w-full select-none text-[12px] md:text-sm flex-row p-1 px-2 text-slate-500 items-center  cursor-pointer hover:bg-slate-900/70 rounded-md mt-1 mb-5 ${
             section ? "flex" : "hidden"
           }`}
         >
           <Image
             src="/media/addButton.png"
-            className="size-5 mr-2 mb-1 invert opacity-35"
+            className="size-5 mr-2 mb-1 invert opacity-50"
             alt="Logo"
             width={20}
             height={20}

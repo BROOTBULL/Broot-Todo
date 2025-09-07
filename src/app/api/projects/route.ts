@@ -55,6 +55,7 @@ export async function POST(req: NextRequest) {
       task: "Task name ...",
       description: "Description....",
       priority: 4,
+      user:userId
     });
 
     const section = await Section.create({

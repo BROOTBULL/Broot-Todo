@@ -88,8 +88,10 @@ export const HomeHader = () => {
   const navOpen = useTodoStore((state) => state.navOpen);
   const loading = useTodoStore((state) => state.loading);
   const setActiveView = useTodoStore((state) => state.setActiveView);
+  const activeView = useTodoStore((state) => state.activeView);
   const projectData = useTodoStore((state) => state.projectData);
   const setActiveProject = useTodoStore((state) => state.setActiveProject);
+  const activeProject = useTodoStore((state) => state.activeProject);
   const InboxProject = projectData.find((project) => project.isInbox === true);
 
   const { data: session } = useSession();
@@ -121,8 +123,8 @@ export const HomeHader = () => {
       />
       <div
         className={`fixed h-full ${
-          navOpen ? "max-w-100" : "max-w-0"
-        } w-[280px] overflow-hidden duration-200  bg-slate-900 rounded-r-2xl left-0 drop-shadow-2xl/80 md:drop-shadow-none z-101`}
+          navOpen ? "max-w-100 opacity-100" : "max-w-0 opacity-0"
+        } w-[280px] overflow-x-hidden overflow-y-auto custom-scroll-d scroll-smooth duration-200 border-r-1 border-gray-800/60 bg-gray-950 rounded-r-2xl left-0 drop-shadow-2xl/80 md:drop-shadow-none z-101`}
       >
         <div className="w-full h-full flex p-2 flex-col">
           <div className="h-fit w-full flex flex-row items-center mb-5">
@@ -146,8 +148,9 @@ export const HomeHader = () => {
           <div className="h-fit w-full flex flex-row items-center">
             <div
               onClick={() => setProfilOpen(!profileOpen)}
-              className="border-2 border-slate-800/80 duration-200 cursor-pointer hover:bg-slate-500/10 w-40 rounded-md h-10 flex items-center flex-row p-1 gap-1 text-[13px] md:text-sm text-slate-300"
-            >
+              className=" duration-200 cursor-pointer hover:bg-slate-500/10 w-50 rounded-md h-10 flex items-center flex-row p-1 gap-1 text-[13px] md:text-sm font-bold tracking-wider text-slate-300"
+            ><div className="bg-gray-800 rounded-lg p-1">
+              
               <Image
                 src={session?.user?.image || "/media/user.png"} // fallback if no image
                 className="size-7 bg-slate-950 rounded-md p-0.5"
@@ -155,6 +158,7 @@ export const HomeHader = () => {
                 width={40}
                 height={40}
               />
+            </div>
               {session ? session.user?.name?.slice(0, 11) : "Username"}
               <Image
                 src="/media/dropDown.png"
@@ -166,13 +170,13 @@ export const HomeHader = () => {
                 height={40}
               />
               <div
-                className={`bg-slate-950 absolute w-40 left-2 h-fit ${
+                className={`bg-slate-800 absolute w-40 left-30 h-fit ${
                   profileOpen ? "max-h-100" : "max-h-0"
                 } top-28 rounded-md z-112 drop-shadow-lg/60 flex-row flex duration-200 overflow-hidden`}
               >
                 <button
                   onClick={() => signOut()}
-                  className=" flex items-center h-8 md:h-10 w-full md:text-sm text-[12px] flex-row p-2 rounded-md text-rose-400 font-bold hover:bg-slate-900 cursor-pointer justify-between"
+                  className=" flex items-center pl-4 h-8 md:h-10 w-full md:text-sm text-[12px] flex-row p-2 rounded-md text-rose-400 font-bold hover:bg-slate-900 cursor-pointer justify-between"
                 >
                   Logout
                   <Image
@@ -203,11 +207,11 @@ export const HomeHader = () => {
           <div className="h-fit w-full flex flex-col gap-2 items-center mt-5 md:mt-8 mb-3 md:mb-5 text-[13px] ">
             <div
               onClick={() => setAddBox("task")}
-              className="h-8 md:h-10 w-full rounded-sm md:rounded-md bg-rose-800/10 border-2 border-rose-800/60 hover:bg-slate-800/60 cursor-pointer duration-200 flex flex-row items-center p-2 pl-3 gap-1"
+              className="h-8 md:h-10 w-full rounded-sm md:rounded-md bg-rose-800/10 border-1 border-rose-800/40 hover:bg-rose-800/20 cursor-pointer duration-200 flex flex-row items-center p-2 pl-3 gap-1"
             >
-              <div>Add Task</div>
+              <div className="text-rose-400/90 font-semibold text-nowrap">Add Task</div>
               <Image
-                src="/media/addTask.png"
+                src="/media/addTaskR.png"
                 className="size-7 p-0.5 opacity-70 ml-auto"
                 alt="Logo"
                 width={40}
@@ -220,8 +224,7 @@ export const HomeHader = () => {
                 setActiveView("search");
                 setNavOpen(false);
               }}
-              className="h-8 md:h-10 w-full rounded-sm md:rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1"
-            >
+              className={` ${activeView==="search"?"bg-slate-900":""} h-8 md:h-10 w-full rounded-sm md:rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1`}         >
               <Image
                 src="/media/search.png"
                 className="size-7 p-0.5 "
@@ -229,7 +232,7 @@ export const HomeHader = () => {
                 width={40}
                 height={40}
               />
-              <div>Search</div>
+              <div className="text-slate-400 text-nowrap">Search</div>
             </button>
             <button
               onClick={() => {
@@ -237,8 +240,7 @@ export const HomeHader = () => {
                 setActiveProject(InboxProject!);
                 setNavOpen(false);
               }}
-              className="h-8 md:h-10 w-full rounded-sm md:rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1"
-            >
+              className={` ${activeView==="inbox"?"bg-slate-900":""} h-8 md:h-10 w-full rounded-sm md:rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1`}         >
               <Image
                 src="/media/inbox.png"
                 className="size-7 p-0.5 "
@@ -246,15 +248,14 @@ export const HomeHader = () => {
                 width={40}
                 height={40}
               />
-              <div>Inbox</div>
+              <div className="text-slate-400 text-nowrap">Inbox</div>
             </button>
             <button
               onClick={() => {
                 setActiveView("assistant");
                 setNavOpen(false);
               }}
-              className="h-8 md:h-10 w-full rounded-sm md:rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1"
-            >
+              className={` ${activeView==="assistant"?"bg-slate-900":""} h-8 md:h-10 w-full rounded-sm md:rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1`}         >
               <Image
                 src="/media/assistant.png"
                 className="size-7 p-0.5 "
@@ -262,15 +263,14 @@ export const HomeHader = () => {
                 width={40}
                 height={40}
               />
-              <div>Project Assistant</div>
+              <div className="text-slate-400 text-nowrap" >AI Assistant</div>
             </button>
             <button
               onClick={() => {
                 setActiveView("today");
                 setNavOpen(false);
               }}
-              className="h-8 md:h-10 w-full rounded-sm md:rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1"
-            >
+              className={` ${activeView==="today"?"bg-slate-900":""} h-8 md:h-10 w-full rounded-sm md:rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1`}         >
               <Image
                 src="/media/calander.png"
                 className="size-7 p-0.5 "
@@ -278,20 +278,19 @@ export const HomeHader = () => {
                 width={40}
                 height={40}
               />
-              <div>Today</div>
+              <div className="text-slate-400 text-nowrap" >Today</div>
             </button>
           </div>
 
-          <div className="border-b-2 w-full border-slate-800 rounded-3xl" />
 
-          <div className="h-fit w-full flex flex-col gap-1 items-center my-3 md:my-5 text-[13px] ">
+          <div className="h-fit w-full flex flex-col gap-1 items-center my-3 md:my-5 text-[13px] pb-20 ">
             <button
               onClick={() => setAddBox("project")}
-              className=" h-8 md:h-10 w-full rounded-sm md:rounded-md bg-rose-800/10 border-2 border-rose-800/60 hover:bg-slate-800/60 cursor-pointer duration-200 flex flex-row items-center p-2 pl-3 gap-1"
+              className=" h-8 md:h-10 w-full rounded-sm md:rounded-md bg-rose-800/10 border-1 border-rose-800/40 hover:bg-rose-800/20 cursor-pointer duration-200 flex flex-row items-center p-2 pl-3 gap-1"
             >
-              <div>My Projects</div>
+              <div className="text-rose-400/90 font-semibold text-nowrap">Add Project</div>
               <Image
-                src="/media/addTask.png"
+                src="/media/addTaskR.png"
                 className="size-7 p-0.5 opacity-70 ml-auto"
                 alt="Logo"
                 width={40}
@@ -308,18 +307,17 @@ export const HomeHader = () => {
                       onClick={() => {
                         setActiveView("project");
                         setActiveProject(project);
-                        setNavOpen(false);
                       }}
-                      className="group h-8 md:h-10 w-full rounded-sm md:rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1 "
+                      className={`${activeProject._id===project._id?"bg-rose-800/10 text-rose-400/90":""} group h-8 md:h-10 w-full rounded-sm md:rounded-md hover:bg-slate-800/50 cursor-pointer duration-200 p-1 flex flex-row items-center gap-1 `}
                     >
                       <Image
-                        src="/media/hashtag.png"
+                        src={`${activeProject._id===project._id?"/media/hashtagR.png":"/media/hashtag.png"}`}
                         className="size-7 p-0.5 "
                         alt="Logo"
                         width={40}
                         height={40}
                       />
-                      <div>{project.title}</div>
+                      <div className={`${activeProject._id===project._id?" text-rose-400/80":"text-slate-400"} text-nowrap overflow-hidden`}>{project.title.length>30?project.title.slice(0,30)+"...":project.title}</div>
                       <button
                         className="size-7 ml-auto cursor-pointer"
                         type="button"
@@ -330,7 +328,7 @@ export const HomeHader = () => {
                       >
                         <Image
                           src="/media/delete.png"
-                          className="size-7 img p-1 opacity-0 group-hover:opacity-20 hover:opacity-100 transition duration-200"
+                          className="size-7 img p-1 opacity-20 lg:opacity-0 lg:group-hover:opacity-20 lg:hover:opacity-100 transition duration-200"
                           alt="Logo"
                           width={40}
                           height={40}

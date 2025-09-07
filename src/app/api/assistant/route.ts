@@ -37,11 +37,16 @@ Generate a project plan in **valid JSON only** that includes:
 
 Each todo must include:
 - "task": short task title
-- "description": always present, a detailed description (use bullet points where possible) suggested duration if applicable (e.g., "5 days", "3 hours") in brackets.
+- "description": always present, a detailed description (use bullet points where possible)  and must use Markdown-safe strings formate ,suggested duration if applicable (e.g., "5 days", "3 hours") in brackets
 - "priority": integer from 1 (high) to 4 (low), based on importance
-Do not include any text outside the JSON.
+Do not include any text outside the JSON as Markdown-safe strings.
+- Inside "description", always use "\\n" for new lines and "-" for bullets .
+- Inside "description" always give two line break together .
+- Example description format:
+  "- Do research [2 days]\\n- Write draft [3 days]\\n- Review with team [1 day]
+
 `;
-    const userQuery = `Create a project plan for: "${prompt}". Include a title, at least 3 sections, and 3–5 todos per section.`;
+    const userQuery = `Create a project plan for: "${prompt}". Include a title, at least 3 sections where possible , and 3–5 todos per section where possible.`;
 
     const payload = {
       contents: [{ parts: [{ text: userQuery }] }],

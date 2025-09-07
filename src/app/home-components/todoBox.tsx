@@ -42,9 +42,9 @@ export default function TodoBox({ todo }: { todo: Todo }) {
       }}
       className={` ${
         selectedTodo?._id === todo._id
-          ? "inset-ring-2 inset-ring-rose-800/60"
+          ? "inset-ring-2 inset-ring-rose-800/40 bg-rose-950/10"
           : ""
-      } group border-b-1 h-20 rounded-lg border-slate-700 p-2 py-1 pl-1 flex flex-row items-center bg-linear-to-t hover:from-indigo-500/10 cursor-pointer hover:to-transparent`}
+      } group pb-1 h-18 rounded-lg flex flex-row items-center bg-linear-to-t hover:from-indigo-500/10 cursor-pointer hover:to-transparent`}
     >
       <div
         className={`h-full w-fit flex items-center bg-linear-to-r ${
@@ -53,17 +53,17 @@ export default function TodoBox({ todo }: { todo: Todo }) {
       >
         <Image
           src="/media/todo.png"
-          className="size-5 mr-2"
+          className="size-4 md:size-5 mr-2"
           alt="Logo"
           width={20}
           height={20}
         />
       </div>
       <div className="flex flex-col pointer-events-none select-none max-w-50 md:max-w-120 overflow-x-hidden">
-        <div className="text-sm text-slate-300 font-bold ml-0.5 h-5 overflow-y-hidden">
+        <div className="text-[12px] md:text-[13px] text-slate-300 font-[600] ml-0.5 h-4 overflow-y-hidden">
           {todo ? todo.task : "Task name..."}
         </div>
-        <div className="text-[12px] pl-1 text-slate-400 h-4 overflow-y-hidden">
+        <div className="text-[10px] tracking-wide md:text-[12px] pl-0.5 text-slate-400 h-4 overflow-y-hidden">
           <ReactMarkdown>
             {todo
               ? todo.description.length > 25
@@ -72,7 +72,7 @@ export default function TodoBox({ todo }: { todo: Todo }) {
               : "Description..."}
           </ReactMarkdown>
         </div>
-        <div className="text-[10px] px-0.5 pt-1.5 text-slate-400 tracking-wider flex items-center flex-row select-none">
+        <div className="text-[9px] md:text-[10px] px-0.5 text-slate-400 tracking-wider flex items-center flex-row select-none">
           <Image
             src="/media/calander.png"
             className="size-3 mr-0.5 mb-0.5"
