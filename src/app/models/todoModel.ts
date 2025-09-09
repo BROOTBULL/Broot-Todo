@@ -4,7 +4,7 @@ import mongoose, { Schema, models } from "mongoose";
 const TodoSchema = new Schema(
   {
     task: { type: String, required: true },
-    description: { type: String, required: true },
+    description: { type: String, required: true ,default:""},
     dueDate: { type: Date, default: null },
     priority: { type: Number, default: 4 },
     status: { type: String, enum: ["pending", "in-progress", "done"], default: "pending" },

@@ -1,4 +1,4 @@
-export default function HeroBG() {
+export default function HeroBackground() {
   const COLS = 20;
   const ROWS = 12;
 

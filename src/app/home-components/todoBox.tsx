@@ -59,7 +59,7 @@ export default function TodoBox({ todo }: { todo: Todo }) {
           height={20}
         />
       </div>
-      <div className="flex flex-col pointer-events-none select-none max-w-50 md:max-w-120 overflow-x-hidden">
+      <div className="flex flex-col pointer-events-none select-none min-w-50 lg:min-w-120 md:min-w-80 overflow-x-hidden">
         <div className="text-[12px] md:text-[13px] text-slate-300 font-[600] ml-0.5 h-4 overflow-y-hidden">
           {todo ? todo.task : "Task name..."}
         </div>
@@ -67,7 +67,7 @@ export default function TodoBox({ todo }: { todo: Todo }) {
           <ReactMarkdown>
             {todo
               ? todo.description.length > 25
-                ? todo.description.slice(0, 25) + "..."
+                ? todo.description.slice(0, 80) + "..."
                 : todo.description
               : "Description..."}
           </ReactMarkdown>

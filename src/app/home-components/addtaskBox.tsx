@@ -157,7 +157,7 @@ export default function AddTaskBox({
             }}
             minDate={new Date()}
             dateFormat="dd/MM/yyyy" // or "yyyy-MM-dd"
-            className="border-1 border-slate-600/50 p-2 md:rounded-md rounded-sm w-25 h-6.5 md:h-8 outline-0 cursor-pointer text-slate-300 text-[10px] md:text-[12px] tracking-wider"
+            className="border-1 border-slate-600/50 p-2 md:rounded-md rounded-sm w-25 h-6.5 md:h-8 outline-0 cursor-pointer text-slate-300 text-[10px] md:text-[12px] tracking-wider z-200"
             calendarClassName="custom-calendar"
             placeholderText="Date"
           />

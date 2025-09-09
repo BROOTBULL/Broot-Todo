@@ -8,7 +8,7 @@ export default function Reviews(){
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeIn" }}
         viewport={{ once: true }}
-        className="md:flex flex-row items-center h-100 my-28 hidden "
+        className="md:flex flex-row items-center h-100 my-28 hidden xl:px-20"
       >
         <div className="w-full h-100 absolute -z-1 bg-[url(/media/hero/reviewBG.png)] bg-center bg-contian opacity-20 bg-no-repeat z-1"/>
         <div className="flex flex-col items-center justify-center flex-1 text-xl p-8 text-center">

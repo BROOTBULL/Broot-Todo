@@ -1,18 +1,21 @@
-import { Footer } from "react-day-picker";
 import Hader from "./hader";
-import Hero from "./hero";
-import HeroBG from "./herobackground";
+import NewHero from "./newHero";
+import HeroBG from "./heroBG";
 import HowToUse from "./howtouse";
 import Reviews from "./reviews";
 import StartBtn from "./startBtn";
+import HomeWindow from "./mainWindow";
+import Footer from "./footer";
 
 const Homepage = () => {
   return (
-    <div className="bg-linear-to-bl from-black via-slate-900 to-black">
-      <div>
+    <div className="bg-linear-to-bl from-black via-indigo-800/10 to-black">
+      <div className="relative">
         <HeroBG />
         <Hader />
-        <Hero />
+        {/* <Hero /> */}
+        <NewHero />
+        <HomeWindow/>
       </div>
       <Reviews />
       <HowToUse />
